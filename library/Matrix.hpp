@@ -1,16 +1,35 @@
-//
-// Created by Віталій on 14.02.2025.
-//
+#ifndef MATRIX_HPP
+#define MATRIX_HPP
 
-#ifndef FT_MATRIX_MATRIX_HPP
-#define FT_MATRIX_MATRIX_HPP
+#include <iostream>
+#include <vector>
 
-namespace math {
+#include "Vector.hpp"
 
+template <class T>
+class Vector;
+
+template <class T>
 class Matrix {
+private:
+    size_t rows;
+    size_t cols;
+    Vector<T> **data;
 
+public:
+    Matrix(const std::vector<std::vector<T> > &other);
+    Matrix(const Matrix &other);
+    ~Matrix();
+
+    Matrix &operator=(const Matrix &other);
+
+    Vector<T> &operator[](size_t row);
+    const Vector<T> &operator[](size_t row) const;
+
+    size_t getRows() const;
+    size_t getCols() const;
 };
 
-} // math
+#include "Matrix.ipp"
 
-#endif //FT_MATRIX_MATRIX_HPP
+#endif  // MATRIX_HPP
