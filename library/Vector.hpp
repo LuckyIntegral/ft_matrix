@@ -1,5 +1,5 @@
-#ifndef FT_MATRIX_VECTOR_HPP
-#define FT_MATRIX_VECTOR_HPP
+
+#pragma once
 
 #include <iostream>
 #include <vector>
@@ -23,5 +23,3 @@ public:
 };
 
 #include "Vector.ipp"
-
-#endif  // FT_MATRIX_VECTOR_HPP

@@ -1,4 +1,8 @@
 
+#pragma once
+
+#include "Vector.hpp"
+
 template <class T>
 Vector<T>::Vector(const std::vector<T> &other)
     : size(other.size()), data(new T[size]) {

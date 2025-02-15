@@ -1,5 +1,5 @@
-#ifndef MATRIX_HPP
-#define MATRIX_HPP
+
+#pragma once
 
 #include <iostream>
 #include <vector>
@@ -31,5 +31,3 @@ public:
 };
 
 #include "Matrix.ipp"
-
-#endif  // MATRIX_HPP

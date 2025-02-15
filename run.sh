@@ -11,6 +11,7 @@ run () {
 
     g++ $CXXFLAGS -o $NAME ex0$1/main.cpp $INCLUDES
     ./$NAME
+    rm $NAME
 }
 
 run $@

@@ -1,4 +1,8 @@
 
+#pragma once
+
+#include "Matrix.hpp"
+
 template <class T>
 Matrix<T>::Matrix(const std::vector<std::vector<T> > &other) {
     rows = other.size();
