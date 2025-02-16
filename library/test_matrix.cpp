@@ -48,13 +48,30 @@ void testMatrixFromNotSquareVector(UnitTest &test) {
     ASSERT_THROWS(test, std::invalid_argument, Matrix<int> mat(stdMat));
 }
 
-void testConstAccessOperator(UnitTest &test) {
+void testAccessOperator(UnitTest &test) {
     SET_TEST_NAME(test);
     std::vector<std::vector<int>> stdMat = {{1, 2, 3}, {4, 5, 6}};
     const Matrix<int> mat(stdMat);
 
     ASSERT_EQUALS(test, 1, mat[0][0]);
     ASSERT_EQUALS(test, 5, mat[1][1]);
+    ASSERT_THROWS(test, std::out_of_range, mat[1][10]);
+}
+
+void testMatrixIsSquareValid(UnitTest &test) {
+    SET_TEST_NAME(test);
+    std::vector<std::vector<int>> stdMat = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    Matrix<int> mat(stdMat);
+
+    ASSERT_TRUE(test, mat.isSquare());
+}
+
+void testMatrixIsSquareInvalid(UnitTest &test) {
+    SET_TEST_NAME(test);
+    std::vector<std::vector<int>> stdMat = {{1, 2, 3}, {4, 5, 6}};
+    Matrix<int> mat(stdMat);
+
+    ASSERT_FALSE(test, mat.isSquare());
 }
 
 int main() {
@@ -63,7 +80,9 @@ int main() {
         testMatrixCopyConstructor,
         testMatrixAssignmentOperator,
         testMatrixFromNotSquareVector,
-        testConstAccessOperator,
+        testAccessOperator,
+        testMatrixIsSquareValid,
+        testMatrixIsSquareInvalid,
     });
     return tests.run();
 }

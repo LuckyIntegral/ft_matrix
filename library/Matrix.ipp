@@ -87,6 +87,11 @@ size_t Matrix<T>::getCols() const {
 }
 
 template <class T>
+bool Matrix<T>::isSquare() const {
+    return this->_rows == this->_cols;
+}
+
+template <class T>
 std::ostream &operator<<(std::ostream &os, const Matrix<T> &matrix) {
     for (size_t i = 0; i < matrix.getRows(); i++) {
         os << matrix[i] << std::endl;

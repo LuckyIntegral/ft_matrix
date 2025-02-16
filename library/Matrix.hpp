@@ -29,6 +29,8 @@ public:
 
     size_t getRows() const;
     size_t getCols() const;
+
+    bool isSquare() const;
 };
 
 #include "Matrix.ipp"
