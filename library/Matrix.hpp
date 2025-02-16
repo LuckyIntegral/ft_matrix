@@ -12,12 +12,13 @@ class Vector;
 template <class T>
 class Matrix {
 private:
-    size_t rows;
-    size_t cols;
-    Vector<T> **data;
+    size_t _rows;
+    size_t _cols;
+    Vector<T> **_data;
 
 public:
     Matrix(const std::vector<std::vector<T> > &other);
+    Matrix(const Vector<T> &other);
     Matrix(const Matrix &other);
     ~Matrix();
 

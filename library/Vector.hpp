@@ -4,14 +4,20 @@
 #include <iostream>
 #include <vector>
 
+#include "Matrix.hpp"
+
+template <class T>
+class Matrix;
+
 template <class T>
 class Vector {
 private:
-    size_t size;
-    T *data;
+    size_t _size;
+    T *_data;
 
 public:
     Vector(const std::vector<T> &other);
+    Vector(const Matrix<T> &other);
     Vector(const Vector &other);
     ~Vector();
 

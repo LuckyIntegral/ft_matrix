@@ -4,34 +4,40 @@
 #include "Matrix.hpp"
 
 template <class T>
-Matrix<T>::Matrix(const std::vector<std::vector<T> > &other) {
-    rows = other.size();
-    cols = other[0].size();
-    for (size_t i = 1; i < rows; i++) {
-        if (other[i].size() != cols) {
+Matrix<T>::Matrix(const std::vector<std::vector<T> > &other)
+    : _rows(other.size()), _cols(other[0].size()) {
+    for (size_t i = 1; i < _rows; i++) {
+        if (other[i].size() != _cols) {
             throw std::invalid_argument("Invalid matrix");
         }
     }
-    data = new Vector<T> *[rows];
-    for (size_t i = 0; i < rows; i++) {
-        data[i] = new Vector<T>(other[i]);
+    this->_data = new Vector<T> *[this->_rows];
+    for (size_t i = 0; i < this->_rows; i++) {
+        this->_data[i] = new Vector<T>(other[i]);
     }
 }
 
 template <class T>
-Matrix<T>::Matrix(const Matrix<T> &other) : rows(other.rows), cols(other.cols) {
-    data = new Vector<T> *[rows];
-    for (size_t i = 0; i < rows; i++) {
-        data[i] = new Vector<T>(*other.data[i]);
+Matrix<T>::Matrix(const Vector<T> &other) : _rows(1), _cols(other.getSize()) {
+    this->_data = new Vector<T> *[1];
+    this->_data[0] = new Vector<T>(other);
+}
+
+template <class T>
+Matrix<T>::Matrix(const Matrix<T> &other)
+    : _rows(other._rows), _cols(other._cols) {
+    this->_data = new Vector<T> *[this->_rows];
+    for (size_t i = 0; i < this->_rows; i++) {
+        this->_data[i] = new Vector<T>(*other._data[i]);
     }
 }
 
 template <class T>
 Matrix<T>::~Matrix() {
-    for (size_t i = 0; i < rows; i++) {
-        delete data[i];
+    for (size_t i = 0; i < this->_rows; i++) {
+        delete this->_data[i];
     }
-    delete[] data;
+    delete[] this->_data;
 }
 
 template <class T>
@@ -40,44 +46,44 @@ Matrix<T> &Matrix<T>::operator=(const Matrix<T> &other) {
         return *this;
     }
 
-    for (size_t i = 0; i < rows; i++) {
-        delete data[i];
+    for (size_t i = 0; i < this->_rows; i++) {
+        delete this->_data[i];
     }
-    delete[] data;
+    delete[] this->_data;
 
-    rows = other.rows;
-    cols = other.cols;
-    data = new Vector<T> *[rows];
-    for (size_t i = 0; i < rows; i++) {
-        data[i] = new Vector<T>(other.data[i]);
+    this->_rows = other._rows;
+    this->_cols = other._cols;
+    this->_data = new Vector<T> *[_rows];
+    for (size_t i = 0; i < this->_rows; i++) {
+        this->_data[i] = new Vector<T>(other._data[i]);
     }
     return *this;
 }
 
 template <class T>
 Vector<T> &Matrix<T>::operator[](size_t row) {
-    if (row >= rows) {
+    if (row >= this->_rows) {
         throw std::out_of_range("Row index out of bounds");
     }
-    return *data[row];
+    return *_data[row];
 }
 
 template <class T>
 const Vector<T> &Matrix<T>::operator[](size_t row) const {
-    if (row >= rows) {
+    if (row >= this->_rows) {
         throw std::out_of_range("Row index out of bounds");
     }
-    return *data[row];
+    return *_data[row];
 }
 
 template <class T>
 size_t Matrix<T>::getRows() const {
-    return rows;
+    return this->_rows;
 }
 
 template <class T>
 size_t Matrix<T>::getCols() const {
-    return cols;
+    return this->_cols;
 }
 
 template <class T>
