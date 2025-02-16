@@ -5,7 +5,7 @@
 #include "Vector.hpp"
 
 void testVectorConstructorFromStdVector(UnitTest &test) {
-    test.setCurrentTestName("testVectorConstructorFromStdVector");
+    SET_TEST_NAME(test);
     std::vector<int> stdVec = {1, 2, 3};
     Vector<int> vec(stdVec);
 
@@ -16,7 +16,7 @@ void testVectorConstructorFromStdVector(UnitTest &test) {
 }
 
 void testVectorCopyConstructor(UnitTest &test) {
-    test.setCurrentTestName("testVectorCopyConstructor");
+    SET_TEST_NAME(test);
     std::vector<int> stdVec = {1, 2, 3};
     Vector<int> vec1(stdVec);
     Vector<int> vec2(vec1);
@@ -28,7 +28,7 @@ void testVectorCopyConstructor(UnitTest &test) {
 }
 
 void testVectorAssignmentOperator(UnitTest &test) {
-    test.setCurrentTestName("testVectorAssignmentOperator");
+    SET_TEST_NAME(test);
     std::vector<int> stdVec = {1, 2, 3};
     Vector<int> vec1(stdVec);
     Vector<int> vec2 = vec1;
