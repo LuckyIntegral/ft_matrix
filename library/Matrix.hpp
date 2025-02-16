@@ -22,15 +22,15 @@ public:
     Matrix(const Matrix &other);
     ~Matrix();
 
-    Matrix &operator=(const Matrix &other);
-
-    Vector<T> &operator[](size_t row);
-    const Vector<T> &operator[](size_t row) const;
-
+    bool isSquare() const;
     size_t getRows() const;
     size_t getCols() const;
 
-    bool isSquare() const;
+    Vector<T> &operator[](size_t row);
+    const Vector<T> &operator[](size_t row) const;
+    bool operator==(const Matrix &other) const;
+
+    Matrix &operator=(const Matrix &other);
 };
 
 #include "Matrix.ipp"

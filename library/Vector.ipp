@@ -59,6 +59,24 @@ const T &Vector<T>::operator[](size_t index) const {
 }
 
 template <class T>
+bool Vector<T>::operator==(const Vector &other) const {
+    if (this->_size != other._size) {
+        return false;
+    }
+    for (size_t i = 0; i < this->_size; i++) {
+        if (this->_data[i] != other._data[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+template <class T>
+bool Vector<T>::operator!=(const Vector &other) const {
+    return !(*this == other);
+}
+
+template <class T>
 Vector<T> &Vector<T>::operator=(const Vector &other) {
     if (this == &other) {
         return *this;

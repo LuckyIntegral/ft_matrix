@@ -21,11 +21,14 @@ public:
     Vector(const Vector &other);
     ~Vector();
 
+    size_t getSize(void) const;
+
     T &operator[](size_t index);
     const T &operator[](size_t index) const;
-    Vector &operator=(const Vector &other);
+    bool operator==(const Vector &other) const;
+    bool operator!=(const Vector &other) const;
 
-    size_t getSize(void) const;
+    Vector &operator=(const Vector &other);
 };
 
 #include "Vector.ipp"

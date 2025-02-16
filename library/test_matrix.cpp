@@ -74,6 +74,23 @@ void testMatrixIsSquareInvalid(UnitTest &test) {
     ASSERT_FALSE(test, mat.isSquare());
 }
 
+void testEqualsOperator(UnitTest &test) {
+    SET_TEST_NAME(test);
+    std::vector<std::vector<int>> stdMat1 = {{1, 2, 3}, {4, 5, 6}};
+    std::vector<std::vector<int>> stdMat2 = {{1, 2, 3}, {4, 5, 6}};
+    std::vector<std::vector<int>> stdMat3 = {{1, 2, 3}, {4, 5, 7}};
+    std::vector<std::vector<int>> stdMat4 = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+
+    Matrix<int> mat1(stdMat1);
+    Matrix<int> mat2(stdMat2);
+    Matrix<int> mat3(stdMat3);
+    Matrix<int> mat4(stdMat4);
+
+    ASSERT_TRUE(test, mat1 == mat2);
+    ASSERT_FALSE(test, mat1 == mat3);
+    ASSERT_FALSE(test, mat1 == mat4);
+}
+
 int main() {
     UnitTest tests({
         testMatrixConstructorFromStdVector,
@@ -83,6 +100,7 @@ int main() {
         testAccessOperator,
         testMatrixIsSquareValid,
         testMatrixIsSquareInvalid,
+        testEqualsOperator,
     });
     return tests.run();
 }

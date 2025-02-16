@@ -59,6 +59,26 @@ void testVectorAccessOperator(UnitTest &test) {
     ASSERT_THROWS(test, std::out_of_range, vec[10]);
 }
 
+void testVectorEqualsOperator(UnitTest &test) {
+    SET_TEST_NAME(test);
+    std::vector<int> stdVec1 = {1, 2, 3};
+    std::vector<int> stdVec2 = {1, 2, 3};
+    std::vector<int> stdVec3 = {1, 2, 3, 4};
+    std::vector<int> stdVec4 = {1, 2, 4};
+
+    Vector<int> vec1(stdVec1);
+    Vector<int> vec2(stdVec2);
+    Vector<int> vec3(stdVec3);
+    Vector<int> vec4(stdVec4);
+
+    ASSERT_TRUE(test, vec1 == vec2);
+    ASSERT_FALSE(test, vec1 != vec2);
+    ASSERT_TRUE(test, vec1 != vec3);
+    ASSERT_FALSE(test, vec1 == vec3);
+    ASSERT_TRUE(test, vec1 != vec4);
+    ASSERT_FALSE(test, vec1 == vec4);
+}
+
 int main() {
     UnitTest tests({
         testVectorConstructorFromStdVector,
@@ -66,6 +86,7 @@ int main() {
         testVectorAssignmentOperator,
         testVectorFromEmptyStdVector,
         testVectorAccessOperator,
+        testVectorEqualsOperator,
     });
     return tests.run();
 }

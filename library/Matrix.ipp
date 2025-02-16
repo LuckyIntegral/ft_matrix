@@ -77,6 +77,21 @@ const Vector<T> &Matrix<T>::operator[](size_t row) const {
 }
 
 template <class T>
+bool Matrix<T>::operator==(const Matrix<T> &other) const {
+    if (this->_rows != other._rows || this->_cols != other._cols) {
+        return false;
+    }
+
+    for (size_t i = 0; i < this->_rows; i++) {
+        if (*this->_data[i] != *other._data[i]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+template <class T>
 size_t Matrix<T>::getRows() const {
     return this->_rows;
 }
