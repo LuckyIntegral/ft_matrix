@@ -5,6 +5,15 @@
 #include "UnitTest.hpp"
 #include "Vector.hpp"
 
+void testVectorConstructorWithSize(UnitTest &test) {
+    SET_TEST_NAME(test);
+    Vector<int> vec(10ul, 42);
+    Vector<int> vec2({42, 42, 42, 42, 42, 42, 42, 42, 42, 42});
+
+    ASSERT_EQUALS(test, 10ul, vec.getSize());
+    ASSERT_EQUALS(test, vec, vec2);
+}
+
 void testVectorConstructorFromStdVector(UnitTest &test) {
     SET_TEST_NAME(test);
     std::vector<int> stdVec = {1, 2, 3};
@@ -81,6 +90,7 @@ void testVectorEqualsOperator(UnitTest &test) {
 
 int main() {
     UnitTest tests({
+        testVectorConstructorWithSize,
         testVectorConstructorFromStdVector,
         testVectorCopyConstructor,
         testVectorAssignmentOperator,

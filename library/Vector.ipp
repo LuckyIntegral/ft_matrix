@@ -4,8 +4,20 @@
 #include "Vector.hpp"
 
 template <class T>
-Vector<T>::Vector(const std::vector<T> &other)
-    : _size(other.size()), _data(new T[_size]) {
+Vector<T>::Vector() : _size(0), _data(new T[0]) {}
+
+template <class T>
+Vector<T>::Vector(const size_t size, const T &value)
+    : _size(size), _data(new T[size]) {
+    for (size_t i = 0; i < this->_size; i++) {
+        this->_data[i] = value;
+    }
+}
+
+template <class T>
+Vector<T>::Vector(const std::vector<T> &other) {
+    this->_size = other.size();
+    this->_data = new T[this->_size];
     for (size_t i = 0; i < this->_size; i++) {
         this->_data[i] = other[i];
     }

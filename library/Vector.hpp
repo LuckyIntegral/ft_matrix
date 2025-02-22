@@ -16,6 +16,8 @@ private:
     T *_data;
 
 public:
+    Vector();
+    Vector(const size_t size, const T &value);
     Vector(const std::vector<T> &other);
     Vector(const Matrix<T> &other);
     Vector(const Vector &other);
@@ -35,5 +37,10 @@ public:
     void scalar(const T &scalar) noexcept(false);
 };
 
+template <class T>
+Vector<T> linear_combination(Vector<Vector<T>> &vectors,
+                             Vector<T> &coefficients);
+
 #include "../ex00/VectorBasics.ipp"
+#include "../ex01/VectorLinearCombination.ipp"
 #include "Vector.ipp"
