@@ -29,8 +29,14 @@ public:
     Vector<T> &operator[](size_t row);
     const Vector<T> &operator[](size_t row) const;
     bool operator==(const Matrix &other) const;
+    bool operator!=(const Matrix &other) const;
 
     Matrix &operator=(const Matrix &other);
+
+    void add(const Matrix<T> &other) noexcept(false);
+    void sub(const Matrix<T> &other) noexcept(false);
+    void scalar(const T &scalar) noexcept(false);
 };
 
+#include "../ex00/MatrixBasics.ipp"
 #include "Matrix.ipp"

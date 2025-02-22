@@ -29,6 +29,11 @@ public:
     bool operator!=(const Vector &other) const;
 
     Vector &operator=(const Vector &other);
+
+    void add(const Vector<T> &other) noexcept(false);
+    void sub(const Vector<T> &other) noexcept(false);
+    void scalar(const T &scalar) noexcept(false);
 };
 
+#include "../ex00/VectorBasics.ipp"
 #include "Vector.ipp"
