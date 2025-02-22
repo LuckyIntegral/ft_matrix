@@ -92,6 +92,11 @@ bool Matrix<T>::operator==(const Matrix<T> &other) const {
 }
 
 template <class T>
+bool Matrix<T>::operator!=(const Matrix<T> &other) const {
+    return !(*this == other);
+}
+
+template <class T>
 size_t Matrix<T>::getRows() const {
     return this->_rows;
 }

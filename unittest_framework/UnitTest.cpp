@@ -1,5 +1,7 @@
 
 #include "UnitTest.hpp"
+#include <cctype>
+#include <regex>
 
 UnitTest::UnitTest(const std::vector<TestFunction> &tests)
     : _tests(tests), _totalTests(0), _passedTests(0) {
@@ -37,7 +39,8 @@ int UnitTest::run() {
 }
 
 void UnitTest::setCurrentTestName(const std::string &name) {
-    this->_currentTestName = name;
+    std::regex uppercase_regex("([A-Z])");
+    this->_currentTestName = std::regex_replace(name, uppercase_regex, " $1");
 }
 
 void UnitTest::setCurrentTestResult(TestResult result) {
