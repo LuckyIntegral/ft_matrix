@@ -37,6 +37,10 @@ public:
     Matrix<T> add(const Matrix<T> &other) const noexcept(false);
     Matrix<T> sub(const Matrix<T> &other) const noexcept(false);
     Matrix<T> scalar(const T &scalar) const noexcept(false);
+
+    Matrix<T> operator+(const Matrix<T> &other) const noexcept(false);
+    Matrix<T> operator-(const Matrix<T> &other) const noexcept(false);
+    Matrix<T> operator*(const T &scalar) const noexcept(false);
 };
 
 // template <class T>

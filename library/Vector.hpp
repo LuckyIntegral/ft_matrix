@@ -34,6 +34,10 @@ public:
     Vector<T> add(const Vector<T> &other) const noexcept(false);
     Vector<T> sub(const Vector<T> &other) const noexcept(false);
     Vector<T> scalar(const T &scalar) const noexcept(false);
+
+    Vector<T> operator+(const Vector<T> &other) const noexcept(false);
+    Vector<T> operator-(const Vector<T> &other) const noexcept(false);
+    Vector<T> operator*(const T &scalar) const noexcept(false);
 };
 
 template <class T>
@@ -45,5 +49,4 @@ Vector<T> linear_combination(Vector<Vector<T>> &vectors,
 
 #include "../ex00/VectorBasics.ipp"
 #include "../ex01/VectorLinearCombination.ipp"
-#include "../ex02/lerp.ipp"
 #include "Vector.ipp"

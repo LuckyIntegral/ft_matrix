@@ -43,3 +43,19 @@ Vector<T> Vector<T>::scalar(const T &scalar) const noexcept(false) {
 
     return result;
 }
+
+template <class T>
+Vector<T> Vector<T>::operator+(const Vector<T> &other) const noexcept(false) {
+    return this->add(other);
+}
+
+template <class T>
+Vector<T> Vector<T>::operator-(const Vector<T> &other) const noexcept(false) {
+    return this->sub(other);
+}
+
+template <class T>
+Vector<T> Vector<T>::operator*(const T &scalar) const noexcept(false) {
+    return this->scalar(scalar);
+}
+

@@ -45,3 +45,18 @@ Matrix<T> Matrix<T>::scalar(const T &scalar) const noexcept(false) {
 
     return result;
 }
+
+template <class T>
+Matrix<T> Matrix<T>::operator+(const Matrix<T> &other) const noexcept(false) {
+    return this->add(other);
+}
+
+template <class T>
+Matrix<T> Matrix<T>::operator-(const Matrix<T> &other) const noexcept(false) {
+    return this->sub(other);
+}
+
+template <class T>
+Matrix<T> Matrix<T>::operator*(const T &scalar) const noexcept(false) {
+    return this->scalar(scalar);
+}
