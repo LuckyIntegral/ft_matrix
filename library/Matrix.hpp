@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include <vector>
+#include <initializer_list>
 
 #include "Vector.hpp"
 
@@ -18,7 +18,7 @@ private:
 public:
     Matrix();
     Matrix(size_t rows, size_t cols, const T &value);
-    Matrix(const std::vector<std::vector<T> > &other);
+    Matrix(const std::initializer_list<std::initializer_list<T>> &list);
     Matrix(const Vector<T> &other);
     Matrix(const Matrix &other);
     ~Matrix();
@@ -34,9 +34,9 @@ public:
 
     Matrix &operator=(const Matrix &other);
 
-    Matrix<T> add(const Matrix<T> &other) noexcept(false);
-    Matrix<T> sub(const Matrix<T> &other) noexcept(false);
-    Matrix<T> scalar(const T &scalar) noexcept(false);
+    Matrix<T> add(const Matrix<T> &other) const noexcept(false);
+    Matrix<T> sub(const Matrix<T> &other) const noexcept(false);
+    Matrix<T> scalar(const T &scalar) const noexcept(false);
 };
 
 // template <class T>

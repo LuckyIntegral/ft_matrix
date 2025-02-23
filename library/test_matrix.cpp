@@ -6,8 +6,7 @@
 
 void testMatrixConstructorFromStdVector(UnitTest &test) {
     SET_TEST_NAME(test);
-    std::vector<std::vector<int>> stdMat = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-    Matrix<int> mat(stdMat);
+    Matrix<int> mat({{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
 
     ASSERT_EQUALS(test, 3ul, mat.getRows());
     ASSERT_EQUALS(test, 3ul, mat.getCols());
@@ -18,8 +17,7 @@ void testMatrixConstructorFromStdVector(UnitTest &test) {
 
 void testMatrixCopyConstructor(UnitTest &test) {
     SET_TEST_NAME(test);
-    std::vector<std::vector<int>> stdMat = {{1, 2, 3}, {4, 5, 6}};
-    Matrix<int> mat1(stdMat);
+    Matrix<int> mat1({{1, 2, 3}, {4, 5, 6}});
     Matrix<int> mat2(mat1);
 
     ASSERT_EQUALS(test, 2ul, mat2.getRows());
@@ -30,8 +28,7 @@ void testMatrixCopyConstructor(UnitTest &test) {
 
 void testMatrixAssignmentOperator(UnitTest &test) {
     SET_TEST_NAME(test);
-    std::vector<std::vector<int>> stdMat = {{1, 2, 3}, {4, 5, 6}};
-    Matrix<int> mat1(stdMat);
+    Matrix<int> mat1({{1, 2, 3}, {4, 5, 6}});
     Matrix<int> mat2 = mat1;
 
     ASSERT_EQUALS(test, 2ul, mat2.getRows());
@@ -42,14 +39,13 @@ void testMatrixAssignmentOperator(UnitTest &test) {
 
 void testMatrixFromNotSquareVector(UnitTest &test) {
     SET_TEST_NAME(test);
-    std::vector<std::vector<int>> stdMat = {{1, 2, 3}, {4, 5, 6}, {7, 8}};
-    ASSERT_THROWS(test, std::invalid_argument, Matrix<int> mat(stdMat));
+    ASSERT_THROWS(test, std::invalid_argument,
+                  Matrix<int> mat({{1, 2, 3}, {4, 5, 6}, {7, 8}}));
 }
 
 void testAccessOperator(UnitTest &test) {
     SET_TEST_NAME(test);
-    std::vector<std::vector<int>> stdMat = {{1, 2, 3}, {4, 5, 6}};
-    const Matrix<int> mat(stdMat);
+    const Matrix<int> mat({{1, 2, 3}, {4, 5, 6}});
 
     ASSERT_EQUALS(test, 1, mat[0][0]);
     ASSERT_EQUALS(test, 5, mat[1][1]);
@@ -58,31 +54,24 @@ void testAccessOperator(UnitTest &test) {
 
 void testMatrixIsSquareValid(UnitTest &test) {
     SET_TEST_NAME(test);
-    std::vector<std::vector<int>> stdMat = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-    Matrix<int> mat(stdMat);
+    Matrix<int> mat({{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
 
     ASSERT_TRUE(test, mat.isSquare());
 }
 
 void testMatrixIsSquareInvalid(UnitTest &test) {
     SET_TEST_NAME(test);
-    std::vector<std::vector<int>> stdMat = {{1, 2, 3}, {4, 5, 6}};
-    Matrix<int> mat(stdMat);
+    Matrix<int> mat({{1, 2, 3}, {4, 5, 6}});
 
     ASSERT_FALSE(test, mat.isSquare());
 }
 
 void testEqualsOperator(UnitTest &test) {
     SET_TEST_NAME(test);
-    std::vector<std::vector<int>> stdMat1 = {{1, 2, 3}, {4, 5, 6}};
-    std::vector<std::vector<int>> stdMat2 = {{1, 2, 3}, {4, 5, 6}};
-    std::vector<std::vector<int>> stdMat3 = {{1, 2, 3}, {4, 5, 7}};
-    std::vector<std::vector<int>> stdMat4 = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-
-    Matrix<int> mat1(stdMat1);
-    Matrix<int> mat2(stdMat2);
-    Matrix<int> mat3(stdMat3);
-    Matrix<int> mat4(stdMat4);
+    Matrix<int> mat1({{1, 2, 3}, {4, 5, 6}});
+    Matrix<int> mat2({{1, 2, 3}, {4, 5, 6}});
+    Matrix<int> mat3({{1, 2, 3}, {4, 5, 7}});
+    Matrix<int> mat4({{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
 
     ASSERT_TRUE(test, mat1 == mat2);
     ASSERT_FALSE(test, mat1 == mat3);

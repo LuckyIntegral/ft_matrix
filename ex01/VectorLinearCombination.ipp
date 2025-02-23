@@ -1,12 +1,13 @@
 
 #pragma once
 
-#include "Vector.hpp"
 #include <cmath>
+
+#include "Vector.hpp"
 
 template <class T>
 Vector<T> linear_combination(Vector<Vector<T>> &vectors,
-                             Vector<T> &coefficients) {
+                             Vector<T> &coefficients) noexcept(false) {
     if (vectors.getSize() != coefficients.getSize()) {
         throw std::invalid_argument(
             "Vectors and coefficients must have the same size");
@@ -22,7 +23,8 @@ Vector<T> linear_combination(Vector<Vector<T>> &vectors,
 
     for (size_t vec = 0; vec < vectors.getSize(); vec++) {
         for (size_t iter = 0; iter < vectors[vec].getSize(); iter++) {
-            result[iter] = std::fma(vectors[vec][iter], coefficients[vec], result[iter]);
+            result[iter] =
+                std::fma(vectors[vec][iter], coefficients[vec], result[iter]);
         }
     }
 

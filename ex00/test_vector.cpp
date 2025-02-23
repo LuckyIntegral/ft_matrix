@@ -5,9 +5,9 @@
 
 void testVectorAddValid(UnitTest &test) {
     SET_TEST_NAME(test);
-    Vector<int> vec1(std::vector<int>{1, 2, 3});
-    const Vector<int> vec2(std::vector<int>{1, 2, 3});
-    const Vector<int> expected(std::vector<int>{2, 4, 6});
+    const Vector<int> vec1({1, 2, 3});
+    const Vector<int> vec2({1, 2, 3});
+    const Vector<int> expected({2, 4, 6});
 
     ASSERT_FALSE(test, vec1 == expected);
     const Vector<int> res = vec1.add(vec2);
@@ -16,17 +16,17 @@ void testVectorAddValid(UnitTest &test) {
 
 void testVectorAddInvalid(UnitTest &test) {
     SET_TEST_NAME(test);
-    Vector<int> vec1(std::vector<int>{1, 2, 3});
-    const Vector<int> vec2(std::vector<int>{1, 2, 3, 4});
+    const Vector<int> vec1({1, 2, 3});
+    const Vector<int> vec2({1, 2, 3, 4});
 
     ASSERT_THROWS(test, std::invalid_argument, vec1.add(vec2));
 }
 
 void testVectorSubstractValid(UnitTest &test) {
     SET_TEST_NAME(test);
-    Vector<int> vec1(std::vector<int>{1, 2, 3});
-    const Vector<int> vec2(std::vector<int>{1, 2, 3});
-    const Vector<int> expected(std::vector<int>{0, 0, 0});
+    const Vector<int> vec1({1, 2, 3});
+    const Vector<int> vec2({1, 2, 3});
+    const Vector<int> expected({0, 0, 0});
 
     ASSERT_FALSE(test, vec1 == expected);
     const Vector<int> res = vec1.sub(vec2);
@@ -35,16 +35,16 @@ void testVectorSubstractValid(UnitTest &test) {
 
 void testVectorSubstractInvalid(UnitTest &test) {
     SET_TEST_NAME(test);
-    Vector<int> vec1(std::vector<int>{1, 2, 3});
-    const Vector<int> vec2(std::vector<int>{1, 2, 3, 4});
+    const Vector<int> vec1({1, 2, 3});
+    const Vector<int> vec2({1, 2, 3, 4});
 
     ASSERT_THROWS(test, std::invalid_argument, vec1.sub(vec2));
 }
 
 void testVectorScalar(UnitTest &test) {
     SET_TEST_NAME(test);
-    Vector<int> vec1(std::vector<int>{1, 2, 3});
-    const Vector<int> expected(std::vector<int>{3, 6, 9});
+    const Vector<int> vec1({1, 2, 3});
+    const Vector<int> expected({3, 6, 9});
 
     ASSERT_FALSE(test, vec1 == expected);
     const Vector<int> res = vec1.scalar(3);

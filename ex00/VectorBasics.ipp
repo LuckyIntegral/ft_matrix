@@ -4,7 +4,7 @@
 #include "Vector.hpp"
 
 template <class T>
-Vector<T> Vector<T>::add(const Vector<T> &other) noexcept(false) {
+Vector<T> Vector<T>::add(const Vector<T> &other) const noexcept(false) {
     if (other.getSize() != this->getSize()) {
         throw std::invalid_argument("Vectors must have the same size");
     }
@@ -19,7 +19,7 @@ Vector<T> Vector<T>::add(const Vector<T> &other) noexcept(false) {
 }
 
 template <class T>
-Vector<T> Vector<T>::sub(const Vector<T> &other) noexcept(false) {
+Vector<T> Vector<T>::sub(const Vector<T> &other) const noexcept(false) {
     if (other.getSize() != this->getSize()) {
         throw std::invalid_argument("Vectors must have the same size");
     }
@@ -34,7 +34,7 @@ Vector<T> Vector<T>::sub(const Vector<T> &other) noexcept(false) {
 }
 
 template <class T>
-Vector<T> Vector<T>::scalar(const T &scalar) noexcept(false) {
+Vector<T> Vector<T>::scalar(const T &scalar) const noexcept(false) {
     Vector<T> result(this->getSize(), 0);
 
     for (size_t i = 0; i < this->getSize(); i++) {

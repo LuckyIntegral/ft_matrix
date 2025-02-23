@@ -19,16 +19,18 @@ Matrix<T>::Matrix(size_t rows, size_t cols, const T &value)
 }
 
 template <class T>
-Matrix<T>::Matrix(const std::vector<std::vector<T> > &other)
-    : _rows(other.size()), _cols(other[0].size()) {
-    for (size_t i = 1; i < _rows; i++) {
-        if (other[i].size() != _cols) {
+Matrix<T>::Matrix(const std::initializer_list<std::initializer_list<T>> &list)
+    : _rows(list.size()), _cols(list.begin()->size()) {
+    for (const auto &row : list) {
+        if (row.size() != _cols) {
             throw std::invalid_argument("Invalid matrix");
         }
     }
+
     this->_data = new Vector<T> *[this->_rows];
-    for (size_t i = 0; i < this->_rows; i++) {
-        this->_data[i] = new Vector<T>(other[i]);
+    size_t i = 0;
+    for (const auto &row : list) {
+        this->_data[i++] = new Vector<T>(row);
     }
 }
 

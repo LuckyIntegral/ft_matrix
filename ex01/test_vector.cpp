@@ -5,13 +5,13 @@
 
 void testVectorLinearCombinationValid(UnitTest &test) {
     SET_TEST_NAME(test);
-    Vector<float> vec1(std::vector<float>{1, 2, 3});
-    Vector<float> vec2(std::vector<float>{0, 10, -100});
+    Vector<float> vec1({1, 2, 3});
+    Vector<float> vec2({0, 10, -100});
 
     Vector<Vector<float>> vectors({vec1, vec2});
-    Vector<float> coefficients(std::vector<float>({10, -2}));
+    Vector<float> coefficients({10, -2});
 
-    Vector<float> expected(std::vector<float>{10, 0, 230});
+    Vector<float> expected({10, 0, 230});
 
     ASSERT_FALSE(test, vec1 == expected);
     Vector<float> res = linear_combination(vectors, coefficients);
@@ -20,11 +20,11 @@ void testVectorLinearCombinationValid(UnitTest &test) {
 
 void testVectorLinearCombinationInvalid(UnitTest &test) {
     SET_TEST_NAME(test);
-    Vector<float> vec1(std::vector<float>{1.0, 2, 3});
-    Vector<float> vec2(std::vector<float>{0, 10, -100});
+    Vector<float> vec1({1.0, 2, 3});
+    Vector<float> vec2({0, 10, -100});
 
     Vector<Vector<float>> vectors({vec1, vec2});
-    Vector<float> coefficients(std::vector<float>({10, -2, 5}));
+    Vector<float> coefficients({10, -2, 5});
 
     // vectors.size() != coefficients.size()
     ASSERT_THROWS(test, std::invalid_argument, linear_combination(vectors, coefficients));

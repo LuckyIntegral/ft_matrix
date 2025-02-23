@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include <vector>
+#include <initializer_list>
 
 #include "Matrix.hpp"
 
@@ -17,7 +17,7 @@ private:
 public:
     Vector();
     Vector(const size_t size, const T &value);
-    Vector(const std::vector<T> &other);
+    Vector(const std::initializer_list<T> &list);
     Vector(const Matrix<T> &other);
     Vector(const Vector &other);
     ~Vector();
@@ -31,14 +31,14 @@ public:
 
     Vector &operator=(const Vector &other);
 
-    Vector<T> add(const Vector<T> &other) noexcept(false);
-    Vector<T> sub(const Vector<T> &other) noexcept(false);
-    Vector<T> scalar(const T &scalar) noexcept(false);
+    Vector<T> add(const Vector<T> &other) const noexcept(false);
+    Vector<T> sub(const Vector<T> &other) const noexcept(false);
+    Vector<T> scalar(const T &scalar) const noexcept(false);
 };
 
 template <class T>
 Vector<T> linear_combination(Vector<Vector<T>> &vectors,
-                             Vector<T> &coefficients);
+                             Vector<T> &coefficients) noexcept(false);
 
 // template <class T>
 // Vector<T> lerp(const Vector<T> &vec1, const Vector<T> &vec2, float t);
