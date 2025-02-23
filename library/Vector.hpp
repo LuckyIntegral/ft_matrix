@@ -38,15 +38,15 @@ public:
     Vector<T> operator+(const Vector<T> &other) const noexcept(false);
     Vector<T> operator-(const Vector<T> &other) const noexcept(false);
     Vector<T> operator*(const T &scalar) const noexcept(false);
+
+    T dotProduct(const Vector<T> &other) const noexcept(false);
 };
 
 template <class T>
 Vector<T> linear_combination(Vector<Vector<T>> &vectors,
                              Vector<T> &coefficients) noexcept(false);
 
-// template <class T>
-// Vector<T> lerp(const Vector<T> &vec1, const Vector<T> &vec2, float t);
-
 #include "../ex00/VectorBasics.ipp"
 #include "../ex01/VectorLinearCombination.ipp"
+#include "../ex03/VectorDotProduct.ipp"
 #include "Vector.ipp"
