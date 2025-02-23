@@ -40,6 +40,10 @@ public:
     Vector<T> operator*(const T &scalar) const noexcept(false);
 
     T dotProduct(const Vector<T> &other) const noexcept(false);
+
+    float normManhattan(void) const noexcept;
+    float normEuclidean(void) const noexcept;
+    float normSupremum(void) const noexcept;
 };
 
 template <class T>
@@ -49,4 +53,5 @@ Vector<T> linear_combination(Vector<Vector<T>> &vectors,
 #include "../ex00/VectorBasics.ipp"
 #include "../ex01/VectorLinearCombination.ipp"
 #include "../ex03/VectorDotProduct.ipp"
+#include "../ex04/VectorNorm.ipp"
 #include "Vector.ipp"
