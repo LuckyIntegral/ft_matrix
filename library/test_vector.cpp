@@ -1,4 +1,3 @@
-#include <iostream>
 #include <stdexcept>
 #include <vector>
 
@@ -8,7 +7,7 @@
 void testVectorConstructorWithSize(UnitTest &test) {
     SET_TEST_NAME(test);
     Vector<int> vec(10ul, 42);
-    Vector<int> vec2({42, 42, 42, 42, 42, 42, 42, 42, 42, 42});
+    Vector<int> vec2(std::vector<int>{42, 42, 42, 42, 42, 42, 42, 42, 42, 42});
 
     ASSERT_EQUALS(test, 10ul, vec.getSize());
     ASSERT_EQUALS(test, vec, vec2);
@@ -16,8 +15,7 @@ void testVectorConstructorWithSize(UnitTest &test) {
 
 void testVectorConstructorFromStdVector(UnitTest &test) {
     SET_TEST_NAME(test);
-    std::vector<int> stdVec = {1, 2, 3};
-    Vector<int> vec(stdVec);
+    Vector<int> vec(std::vector<int>{1, 2, 3});
 
     ASSERT_EQUALS(test, 3ul, vec.getSize());
     ASSERT_EQUALS(test, 1, vec[0]);
@@ -27,8 +25,7 @@ void testVectorConstructorFromStdVector(UnitTest &test) {
 
 void testVectorCopyConstructor(UnitTest &test) {
     SET_TEST_NAME(test);
-    std::vector<int> stdVec = {1, 2, 3};
-    Vector<int> vec1(stdVec);
+    Vector<int> vec1(std::vector<int>{1, 2, 3});
     Vector<int> vec2(vec1);
 
     ASSERT_EQUALS(test, 3ul, vec2.getSize());
@@ -39,8 +36,7 @@ void testVectorCopyConstructor(UnitTest &test) {
 
 void testVectorAssignmentOperator(UnitTest &test) {
     SET_TEST_NAME(test);
-    std::vector<int> stdVec = {1, 2, 3};
-    Vector<int> vec1(stdVec);
+    Vector<int> vec1(std::vector<int>{1, 2, 3});
     Vector<int> vec2 = vec1;
 
     ASSERT_EQUALS(test, 3ul, vec2.getSize());
@@ -61,7 +57,7 @@ void testVectorFromEmptyStdVector(UnitTest &test) {
 void testVectorAccessOperator(UnitTest &test) {
     SET_TEST_NAME(test);
     std::vector<int> stdVec = {1, 2, 3};
-    const Vector<int> vec(stdVec);
+    const Vector<int> vec(std::vector{1, 2, 3});
 
     ASSERT_EQUALS(test, 1, vec[0]);
     ASSERT_EQUALS(test, 2, vec[1]);
@@ -70,15 +66,10 @@ void testVectorAccessOperator(UnitTest &test) {
 
 void testVectorEqualsOperator(UnitTest &test) {
     SET_TEST_NAME(test);
-    std::vector<int> stdVec1 = {1, 2, 3};
-    std::vector<int> stdVec2 = {1, 2, 3};
-    std::vector<int> stdVec3 = {1, 2, 3, 4};
-    std::vector<int> stdVec4 = {1, 2, 4};
-
-    Vector<int> vec1(stdVec1);
-    Vector<int> vec2(stdVec2);
-    Vector<int> vec3(stdVec3);
-    Vector<int> vec4(stdVec4);
+    Vector<int> vec1(std::vector<int>{1, 2, 3});
+    Vector<int> vec2(std::vector<int>{1, 2, 3});
+    Vector<int> vec3(std::vector<int>{1, 2, 3, 4});
+    Vector<int> vec4(std::vector<int>{1, 2, 4});
 
     ASSERT_TRUE(test, vec1 == vec2);
     ASSERT_FALSE(test, vec1 != vec2);

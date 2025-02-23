@@ -1,7 +1,6 @@
 
 #pragma once
 
-#include <iostream>
 #include <vector>
 
 #include "Matrix.hpp"
@@ -32,15 +31,19 @@ public:
 
     Vector &operator=(const Vector &other);
 
-    void add(const Vector<T> &other) noexcept(false);
-    void sub(const Vector<T> &other) noexcept(false);
-    void scalar(const T &scalar) noexcept(false);
+    Vector<T> add(const Vector<T> &other) noexcept(false);
+    Vector<T> sub(const Vector<T> &other) noexcept(false);
+    Vector<T> scalar(const T &scalar) noexcept(false);
 };
 
 template <class T>
 Vector<T> linear_combination(Vector<Vector<T>> &vectors,
                              Vector<T> &coefficients);
 
+// template <class T>
+// Vector<T> lerp(const Vector<T> &vec1, const Vector<T> &vec2, float t);
+
 #include "../ex00/VectorBasics.ipp"
 #include "../ex01/VectorLinearCombination.ipp"
+#include "../ex02/lerp.ipp"
 #include "Vector.ipp"

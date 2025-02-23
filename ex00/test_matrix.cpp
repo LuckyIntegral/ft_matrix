@@ -10,8 +10,8 @@ void testMatrixAddValid(UnitTest &test) {
     const Matrix<int> expected({{2, 4, 6}, {8, 10, 12}});
 
     ASSERT_FALSE(test, mat1 == expected);
-    mat1.add(mat2);
-    ASSERT_TRUE(test, mat1 == expected);
+    const Matrix<int> result = mat1.add(mat2);
+    ASSERT_TRUE(test, result == expected);
 }
 
 void testMatrixAddInvalid(UnitTest &test) {
@@ -29,8 +29,8 @@ void testMatrixSubstractValid(UnitTest &test) {
     const Matrix<int> expected({{0, 0, 0}, {0, 0, 0}});
 
     ASSERT_FALSE(test, mat1 == expected);
-    mat1.sub(mat2);
-    ASSERT_TRUE(test, mat1 == expected);
+    const Matrix<int> result = mat1.sub(mat2);
+    ASSERT_TRUE(test, result == expected);
 }
 
 void testMatrixSubstractInvalid(UnitTest &test) {
@@ -47,8 +47,8 @@ void testMatrixScalar(UnitTest &test) {
     const Matrix<int> expected({{2, 4, 6}, {8, 10, 12}});
 
     ASSERT_FALSE(test, mat1 == expected);
-    mat1.scalar(2);
-    ASSERT_TRUE(test, mat1 == expected);
+    const Matrix<int> result = mat1.scalar(2);
+    ASSERT_TRUE(test, result == expected);
 }
 
 int main() {

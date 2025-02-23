@@ -4,32 +4,44 @@
 #include "Matrix.hpp"
 
 template <class T>
-void Matrix<T>::add(const Matrix<T> &other) noexcept(false) {
+Matrix<T> Matrix<T>::add(const Matrix<T> &other) noexcept(false) {
     if (other.getRows() != this->getRows() ||
         other.getCols() != this->getCols()) {
         throw std::invalid_argument("Matrices must have the same size");
     }
 
+    Matrix<T> result(*this);
+
     for (size_t i = 0; i < this->getRows(); i++) {
-        (*this)[i].add(other[i]);
+        result[i] = result[i].add(other[i]);
     }
+
+    return result;
 }
 
 template <class T>
-void Matrix<T>::sub(const Matrix<T> &other) noexcept(false) {
+Matrix<T> Matrix<T>::sub(const Matrix<T> &other) noexcept(false) {
     if (other.getRows() != this->getRows() ||
         other.getCols() != this->getCols()) {
         throw std::invalid_argument("Matrices must have the same size");
     }
 
+    Matrix<T> result(*this);
+
     for (size_t i = 0; i < this->getRows(); i++) {
-        (*this)[i].sub(other[i]);
+        result[i] = result[i].sub(other[i]);
     }
+
+    return result;
 }
 
 template <class T>
-void Matrix<T>::scalar(const T &scalar) noexcept(false) {
+Matrix<T> Matrix<T>::scalar(const T &scalar) noexcept(false) {
+    Matrix<T> result(*this);
+
     for (size_t i = 0; i < this->getRows(); i++) {
-        (*this)[i].scalar(scalar);
+        result[i] = result[i].scalar(scalar);
     }
+
+    return result;
 }

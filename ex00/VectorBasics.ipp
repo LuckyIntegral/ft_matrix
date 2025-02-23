@@ -4,30 +4,42 @@
 #include "Vector.hpp"
 
 template <class T>
-void Vector<T>::add(const Vector<T> &other) noexcept(false) {
+Vector<T> Vector<T>::add(const Vector<T> &other) noexcept(false) {
     if (other.getSize() != this->getSize()) {
         throw std::invalid_argument("Vectors must have the same size");
     }
 
+    Vector<T> result(this->getSize(), 0);
+
     for (size_t i = 0; i < this->getSize(); i++) {
-        this->_data[i] += other[i];
+        result[i] = this->_data[i] + other[i];
     }
+
+    return result;
 }
 
 template <class T>
-void Vector<T>::sub(const Vector<T> &other) noexcept(false) {
+Vector<T> Vector<T>::sub(const Vector<T> &other) noexcept(false) {
     if (other.getSize() != this->getSize()) {
         throw std::invalid_argument("Vectors must have the same size");
     }
 
+    Vector<T> result(this->getSize(), 0);
+
     for (size_t i = 0; i < this->getSize(); i++) {
-        this->_data[i] -= other[i];
+        result[i] = this->_data[i] - other[i];
     }
+
+    return result;
 }
 
 template <class T>
-void Vector<T>::scalar(const T &scalar) noexcept(false) {
+Vector<T> Vector<T>::scalar(const T &scalar) noexcept(false) {
+    Vector<T> result(this->getSize(), 0);
+
     for (size_t i = 0; i < this->getSize(); i++) {
-        this->_data[i] *= scalar;
+        result[i] = this->_data[i] * scalar;
     }
+
+    return result;
 }

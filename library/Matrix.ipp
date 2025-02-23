@@ -1,7 +1,22 @@
 
 #pragma once
 
+#include <iostream>
+
 #include "Matrix.hpp"
+
+template <class T>
+Matrix<T>::Matrix() : _rows(0), _cols(0), _data(nullptr) {
+}
+
+template <class T>
+Matrix<T>::Matrix(size_t rows, size_t cols, const T &value)
+    : _rows(rows), _cols(cols) {
+    this->_data = new Vector<T> *[this->_rows];
+    for (size_t i = 0; i < this->_rows; i++) {
+        this->_data[i] = new Vector<T>(this->_cols, value);
+    }
+}
 
 template <class T>
 Matrix<T>::Matrix(const std::vector<std::vector<T> > &other)
