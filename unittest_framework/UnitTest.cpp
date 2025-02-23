@@ -1,5 +1,6 @@
 
 #include "UnitTest.hpp"
+
 #include <cctype>
 #include <regex>
 
@@ -36,6 +37,16 @@ int UnitTest::run() {
     }
 
     return this->_totalTests - this->_passedTests;
+}
+
+void UnitTest::assertEquals(const float &expected, const float &actual,
+                            const std::string &file, int line) {
+    if (std::abs(expected - actual) > FLOAT_PRECISION) {
+        std::cerr << __FUNCTION__ << "(" << expected << ", " << actual
+                  << ") --- failure at --- " << file << ":" << line
+                  << std::endl;
+        this->_currentTestResult = TestResult::KO;
+    }
 }
 
 void UnitTest::setCurrentTestName(const std::string &name) {

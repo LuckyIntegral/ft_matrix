@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+#define FLOAT_PRECISION 0.000001
+
 #define RESET "\033[0m"
 #define RED "\033[31m"
 #define GREEN "\033[32m"
@@ -60,6 +62,10 @@ public:
         }
     }
 
+    // Specialization for float because of floating point precision
+    void assertEquals(const float &expected, const float &actual,
+                      const std::string &file, int line);
+
     template <typename ExceptionType, typename Callable>
     void assertThrows(Callable &&callable, const std::string &file, int line) {
         try {
@@ -71,8 +77,8 @@ public:
         } catch (const ExceptionType &) {
             this->_currentTestResult = TestResult::OK;
         } catch (...) {
-            std::cerr << __FUNCTION__ << " --- unexpected behavior at --- " << file
-                      << ":" << line << std::endl;
+            std::cerr << __FUNCTION__ << " --- unexpected behavior at --- "
+                      << file << ":" << line << std::endl;
             this->_currentTestResult = TestResult::KO;
         }
     }
