@@ -3,6 +3,7 @@
 
 #include "UnitTest.hpp"
 #include "Vector.hpp"
+#include "angle_cos.hpp"
 
 void testVectorCosValid(UnitTest &test) {
     SET_TEST_NAME(test);

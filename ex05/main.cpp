@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "Vector.hpp"
+#include "angle_cos.hpp"
 
 int main() {
     {
