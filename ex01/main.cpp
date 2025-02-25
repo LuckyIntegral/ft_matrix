@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "Vector.hpp"
+#include "linear_combination.hpp"
 
 int main() {
     {

@@ -2,6 +2,7 @@
 
 #include "UnitTest.hpp"
 #include "Vector.hpp"
+#include "linear_combination.hpp"
 
 void testVectorLinearCombinationValid(UnitTest &test) {
     SET_TEST_NAME(test);

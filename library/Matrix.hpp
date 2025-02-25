@@ -43,9 +43,5 @@ public:
     Matrix<T> operator*(const T &scalar) const noexcept(false);
 };
 
-// template <class T>
-// Matrix<T> lerp(const Matrix<T> &vec1, const Matrix<T> &vec2, float t);
-
 #include "../ex00/MatrixBasics.ipp"
-#include "../ex02/lerp.ipp"
 #include "Matrix.ipp"
