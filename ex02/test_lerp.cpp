@@ -2,6 +2,8 @@
 
 #include "Matrix.hpp"
 #include "UnitTest.hpp"
+#include "Vector.hpp"
+#include "lerp.hpp"
 
 void testLerpNumber(UnitTest &test) {
     SET_TEST_NAME(test);
