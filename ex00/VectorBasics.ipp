@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include <stdexcept>
+
 #include "Vector.hpp"
 
 template <class T>
@@ -58,4 +60,3 @@ template <class T>
 Vector<T> Vector<T>::operator*(const T &scalar) const noexcept(false) {
     return this->scalar(scalar);
 }
-
