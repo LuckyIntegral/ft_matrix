@@ -42,13 +42,15 @@ public:
     Matrix<T> operator-(const Matrix<T> &other) const noexcept(false);
     Matrix<T> operator*(const T &scalar) const noexcept(false);
 
-
     Vector<T> mult(const Vector<T> &other) const noexcept(false);
     Matrix<T> mult(const Matrix<T> &other) const noexcept(false);
     Vector<T> operator*(const Vector<T> &vec) const noexcept(false);
     Matrix<T> operator*(const Matrix<T> &other) const noexcept(false);
+
+    T trace(void) const noexcept(false);
 };
 
 #include "../ex00/MatrixBasics.ipp"
 #include "../ex07/MatrixMult.ipp"
+#include "../ex08/MatrixTrace.ipp"
 #include "Matrix.ipp"
