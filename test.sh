@@ -6,7 +6,11 @@ run () {
     UNIT_TESTS="./unittest_framework/UnitTest.cpp"
 
     if [ -n "$1" ]; then
-        FOLDER="ex0$1"
+        if [ $1 -lt 10 ]; then
+            FOLDER="ex0$1"
+        else
+            FOLDER="ex$1"
+        fi
     else
         FOLDER='.'
     fi

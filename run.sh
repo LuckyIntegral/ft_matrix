@@ -7,9 +7,15 @@ run () {
 
     CXXFLAGS="-Wall -Wextra -std=c++17 -pedantic"
     INCLUDES="-I library"
-    NAME="exec0$1"
+    if [ $1 -lt 10 ]; then
+        NAME="exec0$1"
+        FOLDER="ex0$1"
+    else
+        NAME="exec$1"
+        FOLDER="ex$1"
+    fi
 
-    g++ $CXXFLAGS -o $NAME ex0$1/main.cpp $INCLUDES
+    g++ $CXXFLAGS -o $NAME $FOLDER/main.cpp $INCLUDES
     ./$NAME
     rm $NAME
 }
