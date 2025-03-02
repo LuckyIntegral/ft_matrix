@@ -34,24 +34,24 @@ T Matrix<T>::determinant(void) const noexcept(false) {
 }
 
 template <class T>
-static Matrix<T> minor(const Matrix<T> &matrix, size_t row, size_t col) noexcept(true) {
+static Matrix<T> minor(const Matrix<T> &matrix, size_t row,
+                       size_t col) noexcept(true) {
     Matrix<T> result(matrix.getRows() - 1, matrix.getCols() - 1, 0);
 
-    for (size_t i = 0, r = 0; i < matrix.getRows(); i++) {
+    for (size_t i = 0, r = 0; i < matrix.getRows(); i++, r++) {
         if (i == row) {
+            r--;
             continue;
         }
 
-        for (size_t j = 0, c = 0; j < matrix.getCols(); j++) {
+        for (size_t j = 0, c = 0; j < matrix.getCols(); j++, c++) {
             if (j == col) {
+                c--;
                 continue;
             }
 
             result[r][c] = matrix[i][j];
-            c++;
         }
-
-        r++;
     }
 
     return result;
