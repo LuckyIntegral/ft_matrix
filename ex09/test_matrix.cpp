@@ -1,6 +1,4 @@
 
-#include <stdexcept>
-
 #include "Matrix.hpp"
 #include "UnitTest.hpp"
 

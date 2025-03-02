@@ -49,10 +49,12 @@ public:
 
     T trace(void) const noexcept(false);
     Matrix<T> transpose(void) const noexcept(true);
+    Matrix<T> row_echelon(void) const noexcept(true);
 };
 
 #include "../ex00/MatrixBasics.ipp"
 #include "../ex07/MatrixMult.ipp"
 #include "../ex08/MatrixTrace.ipp"
 #include "../ex09/MatrixTranspose.ipp"
+#include "../ex10/MatrixREF.ipp"
 #include "Matrix.ipp"

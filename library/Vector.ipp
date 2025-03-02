@@ -86,6 +86,35 @@ bool Vector<T>::operator==(const Vector &other) const {
     return true;
 }
 
+// Specialization for floating-point types
+template <>
+bool Vector<float>::operator==(const Vector &other) const {
+    if (this->_size != other._size) {
+        return false;
+    }
+    const float epsilon = 1e-5;
+    for (size_t i = 0; i < this->_size; i++) {
+        if (std::fabs(this->_data[i] - other._data[i]) > epsilon) {
+            return false;
+        }
+    }
+    return true;
+}
+
+template <>
+bool Vector<double>::operator==(const Vector &other) const {
+    if (this->_size != other._size) {
+        return false;
+    }
+    const double epsilon = 1e-9;
+    for (size_t i = 0; i < this->_size; i++) {
+        if (std::fabs(this->_data[i] - other._data[i]) > epsilon) {
+            return false;
+        }
+    }
+    return true;
+}
+
 template <class T>
 bool Vector<T>::operator!=(const Vector &other) const {
     return !(*this == other);
@@ -109,7 +138,7 @@ Vector<T> &Vector<T>::operator=(const Vector &other) {
 template <class T>
 std::ostream &operator<<(std::ostream &os, const Vector<T> &vec) {
     for (size_t i = 0; i < vec.getSize(); i++) {
-        os << vec[i] << " ";
+        os << vec[i] << "\t";
     }
     return os;
 }
