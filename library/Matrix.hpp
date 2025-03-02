@@ -48,9 +48,15 @@ public:
     Matrix<T> operator*(const Matrix<T> &other) const noexcept(false);
 
     T trace(void) const noexcept(false);
+
     Matrix<T> transpose(void) const noexcept(true);
+
     Matrix<T> row_echelon(void) const noexcept(true);
+
     T determinant(void) const noexcept(false);
+
+    Matrix<T> inverse(void) const noexcept(false);
+    static Matrix<T> identity(size_t n) noexcept(false);
 };
 
 #include "../ex00/MatrixBasics.ipp"
@@ -59,4 +65,5 @@ public:
 #include "../ex09/MatrixTranspose.ipp"
 #include "../ex10/MatrixREF.ipp"
 #include "../ex11/MatrixDeterminant.ipp"
+#include "../ex12/MatrixInverse.ipp"
 #include "Matrix.ipp"
