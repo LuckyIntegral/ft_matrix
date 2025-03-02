@@ -50,6 +50,7 @@ public:
     T trace(void) const noexcept(false);
     Matrix<T> transpose(void) const noexcept(true);
     Matrix<T> row_echelon(void) const noexcept(true);
+    T determinant(void) const noexcept(false);
 };
 
 #include "../ex00/MatrixBasics.ipp"
@@ -57,4 +58,5 @@ public:
 #include "../ex08/MatrixTrace.ipp"
 #include "../ex09/MatrixTranspose.ipp"
 #include "../ex10/MatrixREF.ipp"
+#include "../ex11/MatrixDeterminant.ipp"
 #include "Matrix.ipp"
