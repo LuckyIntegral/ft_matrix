@@ -60,3 +60,46 @@ template <class T>
 Vector<T> Vector<T>::operator*(const T &scalar) const noexcept(false) {
     return this->scalar(scalar);
 }
+
+template <class T>
+void Vector<T>::operator/=(const T &value) noexcept {
+    for (size_t i = 0; i < this->getSize(); i++) {
+        this->_data[i] /= value;
+    }
+}
+
+template <>
+void Vector<float>::roundZeroes(void) noexcept {
+    for (size_t i = 0; i < this->getSize(); i++) {
+        if (std::abs(this->_data[i]) < EPSILON_FLOAT) {
+            this->_data[i] = 0;
+        }
+    }
+}
+
+template <>
+void Vector<double>::roundZeroes(void) noexcept {
+    for (size_t i = 0; i < this->getSize(); i++) {
+        if (std::abs(this->_data[i]) < EPSILON_DOUBLE) {
+            this->_data[i] = 0;
+        }
+    }
+}
+
+template <>
+void Vector<long double>::roundZeroes(void) noexcept {
+    for (size_t i = 0; i < this->getSize(); i++) {
+        if (std::abs(this->_data[i]) < EPSILON_LONG_DOUBLE) {
+            this->_data[i] = 0;
+        }
+    }
+}
+
+template <class T>
+void Vector<T>::roundZeroes(void) noexcept {
+    for (size_t i = 0; i < this->getSize(); i++) {
+        if (std::abs(this->_data[i]) < EPSILON_DOUBLE) {
+            this->_data[i] = 0;
+        }
+    }
+}

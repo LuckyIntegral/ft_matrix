@@ -3,29 +3,31 @@
 
 #include "Matrix.hpp"
 
-#define EPSILON 1e-5f
+template <class T>
+size_t Matrix<T>::findPivot(size_t row, size_t piv) const noexcept(true) {
+    const size_t rows = (*this).getRows();
+    size_t i = row;
+    T maxVal = std::abs((*this)[row][piv]);
+
+    for (size_t r = row + 1; r < rows; r++) {
+        if (std::abs((*this)[r][piv]) > maxVal) {
+            maxVal = std::abs((*this)[r][piv]);
+            i = r;
+        }
+    }
+
+    return i;
+}
 
 template <class T>
 Matrix<T> Matrix<T>::row_echelon(void) const noexcept(true) {
     const size_t rows = this->getRows(), cols = this->getCols();
     Matrix<T> result(*this);
 
-    for (size_t row = 0, pivot = 0; row < rows; row++) {
-        if (pivot >= cols) {
-            break;
-        }
+    for (size_t row = 0, piv = 0; row < rows && piv < cols; row++, piv++) {
+        size_t i = result.findPivot(row, piv);
 
-        size_t i = row;
-        T maxVal = std::abs(result[row][pivot]);
-        for (size_t r = row + 1; r < rows; r++) {
-            if (std::abs(result[r][pivot]) > maxVal) {
-                maxVal = std::abs(result[r][pivot]);
-                i = r;
-            }
-        }
-
-        if (maxVal < EPSILON) {
-            pivot++;
+        if (result[i][piv] == T()) {
             row--;
             continue;
         }
@@ -34,31 +36,22 @@ Matrix<T> Matrix<T>::row_echelon(void) const noexcept(true) {
             std::swap(result[i], result[row]);
         }
 
-        T norm = result[row][pivot];
-        for (size_t col = pivot; col < cols; col++) {
-            result[row][col] /= norm;
-
-            if (std::abs(result[row][col]) < EPSILON) {
-                result[row][col] = 0;
-            }
-        }
+        const T norm = result[row][piv];
+        result[row] /= norm;
+        result[row].roundZeroes();
 
         for (size_t r = 0; r < rows; r++) {
             if (r == row) {
                 continue;
             }
 
-            T factor = result[r][pivot];
-            for (size_t j = pivot; j < cols; j++) {
-                result[r][j] -= factor * result[row][j];
-
-                if (std::abs(result[r][j]) < EPSILON) {
-                    result[r][j] = 0;
-                }
+            const T factor = result[r][piv];
+            for (size_t j = piv; j < cols; j++) {
+                result[r][j] = std::fma(-factor, result[row][j], result[r][j]);
             }
-        }
 
-        pivot++;
+            result[r].roundZeroes();
+        }
     }
 
     return result;

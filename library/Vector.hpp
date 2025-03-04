@@ -5,6 +5,10 @@
 
 #include "Matrix.hpp"
 
+#define EPSILON_FLOAT 1e-5f
+#define EPSILON_DOUBLE 1e-12
+#define EPSILON_LONG_DOUBLE 1e-15
+
 template <class T>
 class Matrix;
 
@@ -44,6 +48,9 @@ public:
     float normManhattan(void) const noexcept;
     float normEuclidean(void) const noexcept;
     float normSupremum(void) const noexcept;
+
+    void operator/=(const T &value) noexcept;
+    void roundZeroes(void) noexcept;
 };
 
 #include "../ex00/VectorBasics.ipp"

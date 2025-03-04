@@ -51,11 +51,11 @@ public:
 
     Matrix<T> transpose(void) const noexcept(true);
 
+    size_t findPivot(size_t row, size_t pivot) const noexcept(true);
     Matrix<T> row_echelon(void) const noexcept(true);
-
     T determinant(void) const noexcept(false);
-
     Matrix<T> inverse(void) const noexcept(false);
+
     static Matrix<T> identity(size_t n) noexcept(false);
 };
 

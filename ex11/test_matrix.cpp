@@ -2,7 +2,7 @@
 #include "Matrix.hpp"
 #include "UnitTest.hpp"
 
-void testMatrixREFValid(UnitTest &test) {
+void testMatrixDetValid(UnitTest &test) {
     SET_TEST_NAME(test);
     {
         Matrix<double> u({
@@ -54,7 +54,7 @@ void testMatrixREFValid(UnitTest &test) {
 
 int main() {
     UnitTest tests({
-        testMatrixREFValid,
+        testMatrixDetValid,
     });
     return tests.run();
 }
