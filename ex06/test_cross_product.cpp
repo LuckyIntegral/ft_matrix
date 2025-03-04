@@ -25,11 +25,17 @@ void testVectorCrossProductValid(UnitTest &test) {
     }
 }
 
-void testVectorCrossProductInvalid(UnitTest &test) {
+void testVectorCrossProductWrongSizes(UnitTest &test) {
     SET_TEST_NAME(test);
     {
         const Vector<int> vec1({0, 0, 0});
         const Vector<int> vec2({1, 2, 3, 4});
+
+        ASSERT_THROWS(test, std::invalid_argument, cross_product(vec1, vec2));
+    }
+        {
+        const Vector<int> vec1({1, 2, 3});
+        const Vector<int> vec2({1, 2});
 
         ASSERT_THROWS(test, std::invalid_argument, cross_product(vec1, vec2));
     }
@@ -38,7 +44,7 @@ void testVectorCrossProductInvalid(UnitTest &test) {
 int main() {
     UnitTest tests({
         testVectorCrossProductValid,
-        testVectorCrossProductInvalid,
+        testVectorCrossProductWrongSizes,
     });
     return tests.run();
 }

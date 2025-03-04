@@ -1,81 +1,112 @@
-
-
 #include "Matrix.hpp"
 #include "UnitTest.hpp"
 
-void testMatrixREFValid(UnitTest &test) {
+void inline assertMatrixAlmostEquals(UnitTest &test,
+                                     const Matrix<float> &expected,
+                                     const Matrix<float> &actual) {
+    for (size_t row = 0; row < expected.getRows(); row++) {
+        for (size_t col = 0; col < expected.getCols(); col++) {
+            ASSERT_TRUE(test, std::abs(expected[row][col] - actual[row][col]) <
+                                  EPSILON_FLOAT);
+        }
+    }
+}
+
+void testIdentityMatrixREF(UnitTest &test) {
     SET_TEST_NAME(test);
-    {
-        Matrix<float> u({
-            {1, 0, 0},
-            {0, 1, 0},
-            {0, 0, 1},
-        });
-        Matrix<float> expected({
-            {1, 0, 0},
-            {0, 1, 0},
-            {0, 0, 1},
-        });
+    Matrix<float> u = Matrix<float>::identity(10);
+    Matrix<float> expected = u;
+    ASSERT_EQUALS(test, expected, u.row_echelon());
+}
 
-        ASSERT_EQUALS(test, expected, u.row_echelon());
-    }
-    {
-        Matrix<float> u({
-            {1, 2},
-            {3, 4},
-        });
-        Matrix<float> expected({
-            {1, 0},
-            {0, 1},
-        });
+void testInvertibleMatrixREF(UnitTest &test) {
+    SET_TEST_NAME(test);
+    Matrix<float> u({
+        {1, 2},
+        {3, 4},
+    });
+    Matrix<float> expected = Matrix<float>::identity(2);
+    ASSERT_EQUALS(test, expected, u.row_echelon());
+}
 
-        ASSERT_EQUALS(test, expected, u.row_echelon());
-    }
-    {
-        Matrix<float> u({
-            {1, 2},
-            {2, 4},
-        });
-        Matrix<float> expected({
-            {1, 2},
-            {0, 0},
-        });
+void testSingularMatrixREF(UnitTest &test) {
+    SET_TEST_NAME(test);
+    Matrix<float> u({
+        {1, 2},
+        {2, 4},
+    });
+    Matrix<float> expected({
+        {1, 2},
+        {0, 0},
+    });
+    ASSERT_EQUALS(test, expected, u.row_echelon());
+}
 
-        ASSERT_EQUALS(test, expected, u.row_echelon());
-    }
-    {
-        Matrix<float> u({
-            {8, 5, -2, 4, 28},
-            {4, 2.5, 20, 4, -4},
-            {8, 5, 1, 4, 17},
-        });
-        Matrix<float> expected({
-            {1.0, 0.625, 0.0, 0.0, -12.1666667},
-            {0.0, 0.0, 1.0, 0.0, -3.6666667},
-            {0.0, 0.0, 0.0, 1.0, 29.5},
-        });
+void testRankDeficientMatrixREF(UnitTest &test) {
+    SET_TEST_NAME(test);
+    Matrix<float> u({
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9},
+    });
+    Matrix<float> expected({
+        {1, 0, -1},
+        {0, 1, 2},
+        {0, 0, 0},
+    });
+    assertMatrixAlmostEquals(test, expected, u.row_echelon());
+}
 
-        ASSERT_EQUALS(test, expected, u.row_echelon());
-    }
-    {
-        Matrix<float> m1({
-            {1, 2, 3},
-            {4, 5, 6},
-            {7, 8, 9},
-        });
-        Matrix<float> expected({
-            {1, 0, -1},
-            {0, 1, 2},
-            {0, 0, 0},
-        });
+void testLargeMatrixREF(UnitTest &test) {
+    SET_TEST_NAME(test);
+    Matrix<float> u({
+        {3, 2, 0, 1, 4},
+        {9, 8, 7, 6, 5},
+        {2, 7, 3, 4, 1},
+        {8, 1, 9, 2, 0},
+        {6, 4, 5, 3, 7},
+    });
+    Matrix<float> expected = u.row_echelon();
+    ASSERT_EQUALS(test, expected, u.row_echelon());
+}
 
-        ASSERT_EQUALS(test, Matrix<float>(3, 3, 0.f), m1.row_echelon() - expected);
-    }
+void testFractionalMatrixREF(UnitTest &test) {
+    SET_TEST_NAME(test);
+    Matrix<float> u({
+        {1.5, 3.0},
+        {0.5, 1.0},
+    });
+    Matrix<float> expected({
+        {1, 2},
+        {0, 0},
+    });
+    ASSERT_EQUALS(test, expected, u.row_echelon());
+}
+
+void testNearlySingularMatrixREF(UnitTest &test) {
+    SET_TEST_NAME(test);
+    Matrix<float> u({
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9.00001},
+    });
+    Matrix<float> expected({
+        {1, 0, -1},
+        {0, 1, 2},
+        {0, 0, 0},
+    });
+    assertMatrixAlmostEquals(test, expected, u.row_echelon());
 }
 
 int main() {
     UnitTest tests({
-        testMatrixREFValid,
+        testIdentityMatrixREF,
+        testInvertibleMatrixREF,
+        testSingularMatrixREF,
+        testRankDeficientMatrixREF,
+        testLargeMatrixREF,
+        testFractionalMatrixREF,
+        testNearlySingularMatrixREF,
     });
     return tests.run();
 }

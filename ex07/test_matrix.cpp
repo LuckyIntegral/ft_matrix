@@ -1,97 +1,131 @@
-
-
 #include <cassert>
+#include <stdexcept>
+#include <vector>
+
 #include "Matrix.hpp"
 #include "UnitTest.hpp"
 
-void testMatrixMulMatrixValid(UnitTest &test) {
+void testMatrixMultiplicationWithIdentityMatrix(UnitTest &test) {
     SET_TEST_NAME(test);
-    {
-        Matrix<int> m1({{1, 0, 0}, {0, 1, 0}, {0, 0, 1}});
-        Matrix<int> m2({{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
-        Matrix<int> expected({{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
-        Matrix<int> result = m1.mult(m2);
-        ASSERT_EQUALS(test, expected, result);
-        ASSERT_EQUALS(test, result, m1 * m2);
-    }
-    {
-        Matrix<int> m1({{1, 2, 3}, {4, 5, 6}});
-        Matrix<int> m2({{1, 2}, {3, 4}, {5, 6}});
-        Matrix<int> expected({{22, 28}, {49, 64}});
-        Matrix<int> result = m1.mult(m2);
-        ASSERT_EQUALS(test, expected, result);
-        ASSERT_EQUALS(test, result, m1 * m2);
-    }
-    {
-        Matrix<int> m1({{1, 1, 1}});
-        Matrix<int> m2({{1}, {1}, {1}});
-        Matrix<int> expected({3});
-        Matrix<int> result = m1.mult(m2);
-        ASSERT_EQUALS(test, expected, result);
-        ASSERT_EQUALS(test, result, m1 * m2);
-    }
+    const Matrix<int> identityMatrix({
+        {1, 0, 0},
+        {0, 1, 0},
+        {0, 0, 1},
+    });
+    const Matrix<int> matrix({
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9},
+    });
+    const Matrix<int> expectedResult({
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9},
+    });
+
+    ASSERT_EQUALS(test, expectedResult, identityMatrix.mult(matrix));
 }
 
-void testMatrixMulMatrixInvalid(UnitTest &test) {
+void testMatrixMultiplicationWithNonSquareMatrices(UnitTest &test) {
     SET_TEST_NAME(test);
-    {
-        Matrix<int> m1({{1, 2, 3}, {4, 5, 6}}); // 2x3
-        Matrix<int> m2({{1, 2}, {3, 4}}); // 2x2
-        ASSERT_THROWS(test, std::invalid_argument, m1.mult(m2));
-        ASSERT_THROWS(test, std::invalid_argument, m1 * m2);
-    }
-    {
-        Matrix<int> m1({{1, 2, 3}, {4, 5, 6}}); // 2x3
-        Matrix<int> m2({{1, 2, 3}, {4, 5, 6}}); // 2x3
-        ASSERT_THROWS(test, std::invalid_argument, m1.mult(m2));
-        ASSERT_THROWS(test, std::invalid_argument, m1 * m2);
-    }
+    const Matrix<int> matrix1({
+        {1, 2, 3},
+        {4, 5, 6},
+    });
+    const Matrix<int> matrix2({
+        {1, 2},
+        {3, 4},
+        {5, 6},
+    });
+    const Matrix<int> expectedResult({
+        {22, 28},
+        {49, 64},
+    });
+
+    ASSERT_EQUALS(test, expectedResult, matrix1.mult(matrix2));
 }
 
-void testMatrixMulVectorValid(UnitTest &test) {
+void testMatrixMultiplicationWithRowAndColumnVectors(UnitTest &test) {
     SET_TEST_NAME(test);
-    {
-        Matrix<int> m({{1, 0, 0}, {0, 1, 0}, {0, 0, 1}});
-        Vector<int> v({1, 2, 3});
-        Vector<int> expected({1, 2, 3});
-        Vector<int> result = m.mult(v);
-        ASSERT_EQUALS(test, expected, result);
-        ASSERT_EQUALS(test, result, m * v);
-    }
-    {
-        Matrix<int> m({{1, 2, 3}, {4, 5, 6}});
-        Vector<int> v({1, 2, 3});
-        Vector<int> expected({14, 32});
-        Vector<int> result = m.mult(v);
-        ASSERT_EQUALS(test, expected, result);
-        ASSERT_EQUALS(test, result, m * v);
-    }
-    {
-        Matrix<int> m({{1, 1, 1}, {1, 1, 1}});
-        Vector<int> v({1, 2, 3});
-        Vector<int> expected({6, 6});
-        Vector<int> result = m.mult(v);
-        ASSERT_EQUALS(test, expected, result);
-        ASSERT_EQUALS(test, result, m * v);
-    }
+    const Matrix<int> rowVector({{1, 1, 1}});
+    const Matrix<int> columnVector({
+        {1},
+        {1},
+        {1},
+    });
+    const Matrix<int> expectedResult({3});
+
+    ASSERT_EQUALS(test, expectedResult, rowVector.mult(columnVector));
 }
 
-void testMatrixMulVectorInvalid(UnitTest &test) {
+void testMatrixMultiplicationWithInvalidDimensions(UnitTest &test) {
     SET_TEST_NAME(test);
-    {
-        Matrix<int> m({{1, 2, 3}, {4, 5, 6}}); // 2x3
-        Vector<int> v({1, 2}); // 2
-        ASSERT_THROWS(test, std::invalid_argument, m.mult(v));
-        ASSERT_THROWS(test, std::invalid_argument, m * v);
-    }
+
+    const Matrix<int> matrix1({
+        {1, 2, 3},
+        {4, 5, 6},
+    });
+    const Matrix<int> matrix2({
+        {1, 2},
+        {3, 4},
+    });
+
+    ASSERT_THROWS(test, std::invalid_argument, matrix1.mult(matrix2));
+    ASSERT_THROWS(test, std::invalid_argument, matrix1 * matrix2);
+}
+
+void testMatrixVectorMultiplicationWithIdentityMatrix(UnitTest &test) {
+    SET_TEST_NAME(test);
+    const Matrix<int> identityMatrix({
+        {1, 0, 0},
+        {0, 1, 0},
+        {0, 0, 1},
+    });
+
+    const Vector<int> vector({1, 2, 3});
+    const Vector<int> expectedResult({1, 2, 3});
+
+    const auto result = identityMatrix.mult(vector);
+    ASSERT_EQUALS(test, expectedResult, result);
+    ASSERT_EQUALS(test, result, identityMatrix * vector);
+}
+
+void testMatrixVectorMultiplicationWithNonSquareMatrix(UnitTest &test) {
+    SET_TEST_NAME(test);
+
+    const Matrix<int> matrix({
+        {1, 2, 3},
+        {4, 5, 6},
+    });
+
+    const Vector<int> vector({1, 2, 3});
+    const Vector<int> expectedResult({14, 32});
+
+    const auto result = matrix.mult(vector);
+    ASSERT_EQUALS(test, expectedResult, result);
+    ASSERT_EQUALS(test, result, matrix * vector);
+}
+
+void testMatrixVectorMultiplicationWithInvalidDimensions(UnitTest &test) {
+    SET_TEST_NAME(test);
+
+    const Matrix<int> matrix({{1, 2, 3}, {4, 5, 6}});
+    const Vector<int> vector({1, 2});
+
+    ASSERT_THROWS(test, std::invalid_argument, matrix.mult(vector));
+    ASSERT_THROWS(test, std::invalid_argument, matrix * vector);
 }
 
 int main() {
     UnitTest tests({
-        testMatrixMulMatrixValid,
-        testMatrixMulMatrixInvalid,
-        testMatrixMulVectorValid,
-        testMatrixMulVectorInvalid,
+        testMatrixMultiplicationWithIdentityMatrix,
+        testMatrixMultiplicationWithNonSquareMatrices,
+        testMatrixMultiplicationWithRowAndColumnVectors,
+        testMatrixMultiplicationWithInvalidDimensions,
+        testMatrixVectorMultiplicationWithIdentityMatrix,
+        testMatrixVectorMultiplicationWithNonSquareMatrix,
+        testMatrixVectorMultiplicationWithInvalidDimensions,
     });
+
     return tests.run();
 }

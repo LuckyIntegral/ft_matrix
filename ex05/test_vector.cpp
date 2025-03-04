@@ -33,7 +33,7 @@ void testVectorCosValid(UnitTest &test) {
     }
 }
 
-void testVectorCosInvalid(UnitTest &test) {
+void testVectorCosZeroVector(UnitTest &test) {
     SET_TEST_NAME(test);
     {
         Vector<int> vec1({0, 0, 0});
@@ -44,10 +44,27 @@ void testVectorCosInvalid(UnitTest &test) {
     }
 }
 
+void testVectorCosWrongSizes(UnitTest &test) {
+    SET_TEST_NAME(test);
+    {
+        Vector<int> vec1({0, 0, 0});
+        Vector<int> vec2({1, 2, 3, 4});
+
+        ASSERT_THROWS(test, std::invalid_argument, angle_cos(vec1, vec2));
+    }
+    {
+        Vector<int> vec1({1, 2, 3});
+        Vector<int> vec2({1, 2});
+
+        ASSERT_THROWS(test, std::invalid_argument, angle_cos(vec1, vec2));
+    }
+}
+
 int main() {
     UnitTest tests({
         testVectorCosValid,
-        testVectorCosInvalid,
+        testVectorCosZeroVector,
+        testVectorCosWrongSizes,
     });
     return tests.run();
 }

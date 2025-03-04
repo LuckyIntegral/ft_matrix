@@ -27,10 +27,10 @@ void testVectorNormValid(UnitTest &test) {
     }
 }
 
-void testVectorNormInvalid(UnitTest &test) {
+void testVectorNormEmptyVector(UnitTest &test) {
     SET_TEST_NAME(test);
     {
-        Vector<int> vec({});
+        Vector<int> vec;
 
         ASSERT_EQUALS(test, 0.f, vec.normManhattan());
         ASSERT_EQUALS(test, 0.f, vec.normEuclidean());
@@ -41,7 +41,7 @@ void testVectorNormInvalid(UnitTest &test) {
 int main() {
     UnitTest tests({
         testVectorNormValid,
-        testVectorNormInvalid,
+        testVectorNormEmptyVector,
     });
     return tests.run();
 }

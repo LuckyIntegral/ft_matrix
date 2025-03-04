@@ -32,8 +32,7 @@ void testVectorDotEmptyValid(UnitTest &test) {
     Vector<float> vec1({});
     Vector<float> vec2({});
 
-    const float expected = 0;
-    ASSERT_EQUALS(test, expected, vec1.dotProduct(vec2));
+    ASSERT_EQUALS(test, 0.f, vec1.dotProduct(vec2));
 }
 
 void testVectorDotInvalid(UnitTest &test) {
@@ -41,7 +40,6 @@ void testVectorDotInvalid(UnitTest &test) {
     Vector<float> vec1({1, 2, 3});
     Vector<float> vec2({0, 10});
 
-    // vec1.size() != vec2.size()
     ASSERT_THROWS(test, std::invalid_argument, vec1.dotProduct(vec2));
 }
 

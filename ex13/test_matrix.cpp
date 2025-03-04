@@ -1,72 +1,60 @@
-
 #include "Matrix.hpp"
 #include "UnitTest.hpp"
 
-void testMatrixRankValid(UnitTest &test) {
+void testIdentityMatrixRank(UnitTest &test) {
     SET_TEST_NAME(test);
-    {
-        Matrix<double> given({
-            {1., 0., 0.},
-            {0., 1., 0.},
-            {0., 0., 1.},
-        });
-        ASSERT_EQUALS(test, 3, given.rank());
-    }
-    {
-        Matrix<double> given({
-            {1., 0., 0., 0.},
-            {0., 1., 0., 0.},
-            {0., 0., 1., 0.},
-            {0., 0., 1., 0.},
-        });
-        ASSERT_EQUALS(test, 3, given.rank());
-    }
-    {
-        Matrix<double> given({
-            {7., 0., 0.},
-            {0., 7., 0.},
-            {0., 0., 7.},
-        });
-        ASSERT_EQUALS(test, 3, given.rank());
-    }
-    {
-        Matrix<double> given({
-            {1., 0., 0.},
-            {0., 0., 0.},
-            {0., 0., 0.},
-        });
-        ASSERT_EQUALS(test, 1, given.rank());
-    }
-    {
-        Matrix<float> given({
-            {0., 0., 0.},
-            {0., 0., 0.},
-            {0., 0., 0.},
-        });
-        ASSERT_EQUALS(test, 0, given.rank());
-    }
-    {
-        Matrix<double> given({
-            {1., 2., 0., 0.},
-            {2., 4., 0., 0.},
-            {-1., 2., 1., 1.},
-        });
-        ASSERT_EQUALS(test, 2, given.rank());
-    }
-    {
-        Matrix<float> given({
-            {8., 5., -2.},
-            {4., 7., 20.},
-            {7., 6., 1.},
-            {21., 18., 7.},
-        });
-        ASSERT_EQUALS(test, 3, given.rank());
-    }
+    Matrix<double> given({
+        {1., 0., 0.},
+        {0., 1., 0.},
+        {0., 0., 1.},
+    });
+    ASSERT_EQUALS(test, 3, given.rank());
+}
+
+void testZeroMatrixRank(UnitTest &test) {
+    SET_TEST_NAME(test);
+    Matrix<float> given({
+        {0., 0., 0.},
+        {0., 0., 0.},
+        {0., 0., 0.},
+    });
+    ASSERT_EQUALS(test, 0, given.rank());
+}
+
+void testDependentRowsMatrixRank(UnitTest &test) {
+    SET_TEST_NAME(test);
+    Matrix<double> given({
+        {1., 2., 3.},
+        {2., 4., 6.},
+        {3., 6., 9.},
+    });
+    ASSERT_EQUALS(test, 1, given.rank());
+}
+
+void testRectangularMatrixRank(UnitTest &test) {
+    SET_TEST_NAME(test);
+    Matrix<float> given({
+        {8., 5., -2.},
+        {4., 7., 20.},
+        {7., 6., 1.},
+        {21., 18., 7.},
+    });
+    ASSERT_EQUALS(test, 3, given.rank());
+}
+
+void testEmptyMatrixRank(UnitTest &test) {
+    SET_TEST_NAME(test);
+    Matrix<int> given;
+    ASSERT_EQUALS(test, 0, given.rank());
 }
 
 int main() {
     UnitTest tests({
-        testMatrixRankValid,
+        testIdentityMatrixRank,
+        testZeroMatrixRank,
+        testDependentRowsMatrixRank,
+        testRectangularMatrixRank,
+        testEmptyMatrixRank,
     });
     return tests.run();
 }

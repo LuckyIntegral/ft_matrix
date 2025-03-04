@@ -1,8 +1,7 @@
-
 #include "Matrix.hpp"
 #include "UnitTest.hpp"
 
-void testMatrixDetValid(UnitTest &test) {
+void testDeterminantSingularMatrices(UnitTest &test) {
     SET_TEST_NAME(test);
     {
         Matrix<double> u({
@@ -13,12 +12,44 @@ void testMatrixDetValid(UnitTest &test) {
     }
     {
         Matrix<double> u({
+            {1., 2., 3.},
+            {4., 5., 6.},
+            {7., 8., 9.},
+        });
+        ASSERT_EQUALS(test, 0., u.determinant());
+    }
+    {
+        Matrix<double> u({
+            {2., 4., 6.},
+            {1., 2., 3.},
+            {3., 6., 9.},
+        });
+        ASSERT_EQUALS(test, 0., u.determinant());
+    }
+}
+
+void testDeterminantScalarMatrices(UnitTest &test) {
+    SET_TEST_NAME(test);
+    {
+        Matrix<double> u({
             {2., 0., 0.},
             {0., 2., 0.},
             {0., 0., 2.},
         });
         ASSERT_EQUALS(test, 8.0, u.determinant());
     }
+    {
+        Matrix<double> u({
+            {-3., 0., 0.},
+            {0., -3., 0.},
+            {0., 0., -3.},
+        });
+        ASSERT_EQUALS(test, -27.0, u.determinant());
+    }
+}
+
+void testDeterminantGeneralMatrices(UnitTest &test) {
+    SET_TEST_NAME(test);
     {
         Matrix<double> u({
             {8., 5., -2.},
@@ -36,6 +67,10 @@ void testMatrixDetValid(UnitTest &test) {
         });
         ASSERT_EQUALS(test, 1032.0, u.determinant());
     }
+}
+
+void testDeterminantLargeMatrix(UnitTest &test) {
+    SET_TEST_NAME(test);
     {
         Matrix<float> u({
             {1, 2, 3, 4, 5, 6, 7, 8, 9},
@@ -52,9 +87,45 @@ void testMatrixDetValid(UnitTest &test) {
     }
 }
 
+void testDeterminantFractionalMatrix(UnitTest &test) {
+    SET_TEST_NAME(test);
+    {
+        Matrix<float> u({
+            {0.5, 1.5},
+            {1.25, -2.5},
+        });
+        ASSERT_EQUALS(test, -3.125f, u.determinant());
+    }
+    {
+        Matrix<float> u({
+            {0.2, 0.4, 0.6},
+            {0.1, 0.5, 0.9},
+            {0.3, 0.7, 0.2},
+        });
+        ASSERT_EQUALS(test, -0.054f, u.determinant());
+    }
+}
+
+void testDeterminantPerturbedIdentity(UnitTest &test) {
+    SET_TEST_NAME(test);
+    {
+        Matrix<float> u({
+            {1.001, 0., 0.},
+            {0., 1.001, 0.},
+            {0., 0., 1.001},
+        });
+        ASSERT_EQUALS(test, 1.003003f, u.determinant());
+    }
+}
+
 int main() {
     UnitTest tests({
-        testMatrixDetValid,
+        testDeterminantSingularMatrices,
+        testDeterminantScalarMatrices,
+        testDeterminantGeneralMatrices,
+        testDeterminantLargeMatrix,
+        testDeterminantFractionalMatrix,
+        testDeterminantPerturbedIdentity,
     });
     return tests.run();
 }

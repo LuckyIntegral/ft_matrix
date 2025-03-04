@@ -21,6 +21,10 @@ Matrix<T>::Matrix(size_t rows, size_t cols, const T &value)
 template <class T>
 Matrix<T>::Matrix(const std::initializer_list<std::initializer_list<T>> &list)
     : _rows(list.size()), _cols(list.begin()->size()) {
+    if (list.size() == 0) {
+        throw std::invalid_argument("Invalid matrix");
+    }
+
     for (const auto &row : list) {
         if (row.size() != _cols) {
             throw std::invalid_argument("Invalid matrix");
