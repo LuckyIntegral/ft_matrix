@@ -55,6 +55,7 @@ public:
     Matrix<T> row_echelon(void) const noexcept(true);
     T determinant(void) const noexcept(false);
     Matrix<T> inverse(void) const noexcept(false);
+    size_t rank(void) const noexcept(false);
 
     static Matrix<T> identity(size_t n) noexcept(false);
 };
@@ -66,4 +67,5 @@ public:
 #include "../ex10/MatrixREF.ipp"
 #include "../ex11/MatrixDeterminant.ipp"
 #include "../ex12/MatrixInverse.ipp"
+#include "../ex13/MatrixRank.ipp"
 #include "Matrix.ipp"
