@@ -22,12 +22,15 @@ Matrix<T>::Matrix(size_t rows, size_t cols, const T &value) noexcept
 
 template <class T>
 Matrix<T>::Matrix(const std::initializer_list<std::initializer_list<T>> &list)
-    : _rows(list.size()),
-      _cols(list.begin()->size()),
-      _data(std::make_unique<Vector<T>[]>(list.size())) {
-    if (list.size() == 0) {
-        throw std::invalid_argument("Invalid matrix");
+    : _rows(list.size()) {
+    if (this->_rows == 0) {
+        this->_cols = 0;
+        this->_data = std::make_unique<Vector<T>[]>(0);
+        return;
     }
+
+    this->_cols(list.begin()->size());
+    this->_data = std::make_unique<Vector<T>[]>(list.size());
 
     for (const auto &row : list) {
         if (row.size() != _cols) {
