@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include <cmath>
+
 #include "Matrix.hpp"
 
 template <class T>
