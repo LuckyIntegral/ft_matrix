@@ -6,43 +6,43 @@
 
 int main() {
     {
-        std::cout << "Matrix inverse" << std::endl;
-        std::cout << "A * A^-1 = I" << std::endl;
-        std::cout << "Main rule: A must be square" << std::endl;
-        std::cout << std::endl;
+        std::cout << "Matrix inverse\n";
+        std::cout << "A * A^-1 = I\n";
+        std::cout << "Main rule: A must be square\n";
+        std::cout << '\n';
     }
     {
-        Matrix<double> m1({
+        const Matrix<double> m1({
             {1., 0., 0.},
             {0., 1., 0.},
             {0., 0., 1.},
         });
-        std::cout << "Test 1 result:\n" << m1.inverse() << std::endl;
+        std::cout << "Test 1 result:\n" << m1.inverse() << '\n';
     }
     {
-        Matrix<double> m1({
+        const Matrix<double> m1({
             {3, 4},
             {1, 2},
         });
-        std::cout << "Test 2 result:\n" << m1.inverse() << std::endl;
-        std::cout << "A * A^-1:\n" << m1 * m1.inverse() << std::endl;
+        std::cout << "Test 2 result:\n" << m1.inverse() << '\n';
+        std::cout << "A * A^-1:\n" << m1 * m1.inverse() << '\n';
     }
     {
         /*
         2x + 3y= 8
         −7x + 4y= 2
         */
-        Matrix<double> A({
+        const Matrix<double> A({
             {2., 3.},
             {-7., 4.},
         });
-        Vector<double> c({8., 2.});
-        Vector<double> b = A.inverse() * c;
+        const Vector<double> c({8., 2.});
+        const Vector<double> b = A.inverse() * c;
 
         std::cout << "Ab = c,  b = (A^-1)c \n";
-        std::cout << "Ab = " << A * b << std::endl;
-        std::cout << "c = " << c << std::endl;
-        std::cout << (A * b == c ? "Magic" : "No Magic") << std::endl;
+        std::cout << "Ab = " << A * b << '\n';
+        std::cout << "c = " << c << '\n';
+        std::cout << (A * b == c ? "Magic" : "No Magic") << '\n';
     }
     return 0;
 }
