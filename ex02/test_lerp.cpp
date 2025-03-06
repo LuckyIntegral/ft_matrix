@@ -11,6 +11,7 @@ void testLerpNumber(UnitTest &test) {
     ASSERT_EQUALS(test, 1., lerp(0., 2., 0.5));
     ASSERT_EQUALS(test, 2., lerp(0., 2., 1.));
     ASSERT_THROWS(test, std::invalid_argument, lerp(0., 2., 100.));
+    ASSERT_THROWS(test, std::invalid_argument, lerp(0., 2., -100.));
 }
 
 void testVectorLerpValid(UnitTest &test) {
