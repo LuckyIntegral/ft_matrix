@@ -1,8 +1,6 @@
 
 #pragma once
 
-#include <cmath>
-
 #include "Matrix.hpp"
 
 template <class T>
@@ -14,9 +12,7 @@ Vector<T> Matrix<T>::mult(const Vector<T> &other) const noexcept(false) {
     Vector<T> result(this->_rows, 0);
 
     for (size_t row = 0; row < this->_rows; row++) {
-        for (size_t col = 0; col < this->_cols; col++) {
-            result[row] = std::fma((*this)[row][col], other[col], result[row]);
-        }
+        result[row] = (*this)[row].dotProduct(other);
     }
 
     return result;
@@ -28,13 +24,13 @@ Matrix<T> Matrix<T>::mult(const Matrix<T> &other) const noexcept(false) {
         throw std::invalid_argument("Dimensions do not match");
     }
 
+    const Matrix<T> transposed = other.transpose();
+
     Matrix<T> result(this->_rows, other._cols, 0);
 
-    for (size_t row = 0; row < this->_rows; row++) {
-        for (size_t col = 0; col < other._cols; col++) {
-            for (size_t i = 0; i < this->_cols; i++) {
-                result[row][col] = std::fma((*this)[row][i], other[i][col], result[row][col]);
-            }
+    for (size_t row = 0; row < result.getRows(); row++) {
+        for (size_t col = 0; col < result.getCols(); col++) {
+            result[row][col] = (*this)[row].dotProduct(transposed[col]);
         }
     }
 
