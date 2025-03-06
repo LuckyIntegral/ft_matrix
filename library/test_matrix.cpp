@@ -78,6 +78,23 @@ void testEqualsOperator(UnitTest &test) {
     ASSERT_FALSE(test, mat1 == mat4);
 }
 
+void testCopyAssignmentOperator(UnitTest &test) {
+    SET_TEST_NAME(test);
+    Matrix<int> mat1({{1, 2, 3}});
+    Matrix<int> mat2({{1, 2, 3}, {4, 5, 6}});
+    Matrix<int> mat3({{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {10, 11, 12}});
+    Matrix<int> mat4({{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
+
+    mat1 = mat2;
+    ASSERT_TRUE(test, mat1 == mat2);
+
+    mat1 = mat3;
+    ASSERT_TRUE(test, mat1 == mat3);
+
+    mat1 = mat4;
+    ASSERT_TRUE(test, mat1 == mat4);
+}
+
 int main() {
     UnitTest tests({
         testMatrixConstructorFromStdVector,
@@ -88,6 +105,7 @@ int main() {
         testMatrixIsSquareValid,
         testMatrixIsSquareInvalid,
         testEqualsOperator,
+        testCopyAssignmentOperator,
     });
     return tests.run();
 }

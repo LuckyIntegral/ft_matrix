@@ -6,7 +6,7 @@
 #include "Matrix.hpp"
 
 template <class T>
-size_t Matrix<T>::rank(void) const {
+size_t Matrix<T>::rank(void) const noexcept {
     Matrix<T> copy(*this);
     const size_t rows = this->_rows, cols = this->_cols;
     size_t rank = 0;

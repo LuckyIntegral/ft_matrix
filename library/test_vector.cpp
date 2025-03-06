@@ -77,6 +77,19 @@ void testVectorEqualsOperator(UnitTest &test) {
     ASSERT_FALSE(test, vec1 == vec4);
 }
 
+void testVectorCopyAssignmentOperator(UnitTest &test) {
+    SET_TEST_NAME(test);
+    Vector<int> vec1({1, 2, 3});
+    Vector<int> vec2({4, 5, 6});
+
+    vec2 = vec1;
+
+    ASSERT_EQUALS(test, 3ul, vec2.getSize());
+    ASSERT_EQUALS(test, 1, vec2[0]);
+    ASSERT_EQUALS(test, 2, vec2[1]);
+    ASSERT_EQUALS(test, 3, vec2[2]);
+}
+
 int main() {
     UnitTest tests({
         testVectorConstructorWithSize,
@@ -86,6 +99,7 @@ int main() {
         testVectorFromEmptyStdVector,
         testVectorAccessOperator,
         testVectorEqualsOperator,
+        testVectorCopyAssignmentOperator,
     });
     return tests.run();
 }

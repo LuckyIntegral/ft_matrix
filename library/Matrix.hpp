@@ -54,7 +54,7 @@ public:
     Matrix<T> rowEchelon(void) const noexcept;
     T determinant(void) const;
     Matrix<T> inverse(void) const;
-    size_t rank(void) const;
+    size_t rank(void) const noexcept;
 
     static Matrix<T> identity(size_t n) noexcept;
 };

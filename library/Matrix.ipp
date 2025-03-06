@@ -61,16 +61,11 @@ Matrix<T> &Matrix<T>::operator=(const Matrix<T> &other) noexcept {
         return *this;
     }
 
-    for (size_t i = 0; i < this->_rows; i++) {
-        delete this->_data[i];
-    }
-    delete[] this->_data;
-
     this->_rows = other._rows;
     this->_cols = other._cols;
-    this->_data = new Vector<T> *[_rows];
+    this->_data = std::make_unique<Vector<T>[]>(this->_rows);
     for (size_t i = 0; i < this->_rows; i++) {
-        this->_data[i] = new Vector<T>(other._data[i]);
+        this->_data[i] = other._data[i];
     }
     return *this;
 }
