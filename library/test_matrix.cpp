@@ -95,6 +95,16 @@ void testCopyAssignmentOperator(UnitTest &test) {
     ASSERT_TRUE(test, mat1 == mat4);
 }
 
+void testInvalidInitialization(UnitTest &test) {
+    SET_TEST_NAME(test);
+    ASSERT_THROWS(test, std::invalid_argument, Matrix<int> mat({{1, 2}, {3, 4, 5}}));
+}
+
+void testEmptyInitialization(UnitTest &test) {
+    SET_TEST_NAME(test);
+    ASSERT_THROWS(test, std::invalid_argument, Matrix<int> mat({}));
+}
+
 int main() {
     UnitTest tests({
         testMatrixConstructorFromStdVector,
@@ -106,6 +116,8 @@ int main() {
         testMatrixIsSquareInvalid,
         testEqualsOperator,
         testCopyAssignmentOperator,
+        testInvalidInitialization,
+        testEmptyInitialization,
     });
     return tests.run();
 }
