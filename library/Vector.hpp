@@ -2,6 +2,7 @@
 #pragma once
 
 #include <initializer_list>
+#include <memory>
 
 #include "Matrix.hpp"
 
@@ -16,34 +17,33 @@ template <class T>
 class Vector {
 private:
     size_t _size;
-    T *_data;
+    std::unique_ptr<T[]> _data;
 
 public:
-    Vector();
-    Vector(const size_t size, const T &value);
-    Vector(const std::initializer_list<T> &list);
-    Vector(const Matrix<T> &other);
-    Vector(const Vector &other);
-    ~Vector();
+    Vector() noexcept;
+    Vector(const size_t size, const T &value) noexcept;
+    Vector(const std::initializer_list<T> &list) noexcept;
+    Vector(const Vector &other) noexcept;
+    ~Vector() = default;
 
-    size_t getSize(void) const;
+    size_t getSize(void) const noexcept;
 
     T &operator[](size_t index);
     const T &operator[](size_t index) const;
-    bool operator==(const Vector &other) const;
-    bool operator!=(const Vector &other) const;
+    bool operator==(const Vector &other) const noexcept;
+    bool operator!=(const Vector &other) const noexcept;
 
-    Vector &operator=(const Vector &other);
+    Vector &operator=(const Vector &other) noexcept;
 
-    Vector<T> add(const Vector<T> &other) const noexcept(false);
-    Vector<T> sub(const Vector<T> &other) const noexcept(false);
-    Vector<T> scalar(const T &scalar) const noexcept(false);
+    Vector<T> add(const Vector<T> &other) const;
+    Vector<T> sub(const Vector<T> &other) const;
+    Vector<T> scalar(const T &scalar) const noexcept;
 
-    Vector<T> operator+(const Vector<T> &other) const noexcept(false);
-    Vector<T> operator-(const Vector<T> &other) const noexcept(false);
-    Vector<T> operator*(const T &scalar) const noexcept(false);
+    Vector<T> operator+(const Vector<T> &other) const;
+    Vector<T> operator-(const Vector<T> &other) const;
+    Vector<T> operator*(const T &scalar) const noexcept;
 
-    T dotProduct(const Vector<T> &other) const noexcept(false);
+    T dotProduct(const Vector<T> &other) const;
 
     float normManhattan(void) const noexcept;
     float normEuclidean(void) const noexcept;

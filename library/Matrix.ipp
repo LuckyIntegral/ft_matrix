@@ -6,21 +6,25 @@
 #include "Matrix.hpp"
 
 template <class T>
-Matrix<T>::Matrix() : _rows(0), _cols(0), _data(nullptr) {
+Matrix<T>::Matrix() noexcept
+    : _rows(0), _cols(0), _data(std::make_unique<Vector<T>[]>(0)) {
 }
 
 template <class T>
-Matrix<T>::Matrix(size_t rows, size_t cols, const T &value)
-    : _rows(rows), _cols(cols) {
-    this->_data = new Vector<T> *[this->_rows];
+Matrix<T>::Matrix(size_t rows, size_t cols, const T &value) noexcept
+    : _rows(rows),
+      _cols(cols),
+      _data(std::make_unique<Vector<T>[]>(this->_rows)) {
     for (size_t i = 0; i < this->_rows; i++) {
-        this->_data[i] = new Vector<T>(this->_cols, value);
+        this->_data[i] = Vector<T>(this->_cols, value);
     }
 }
 
 template <class T>
 Matrix<T>::Matrix(const std::initializer_list<std::initializer_list<T>> &list)
-    : _rows(list.size()), _cols(list.begin()->size()) {
+    : _rows(list.size()),
+      _cols(list.begin()->size()),
+      _data(std::make_unique<Vector<T>[]>(list.size())) {
     if (list.size() == 0) {
         throw std::invalid_argument("Invalid matrix");
     }
@@ -31,38 +35,28 @@ Matrix<T>::Matrix(const std::initializer_list<std::initializer_list<T>> &list)
         }
     }
 
-    this->_data = new Vector<T> *[this->_rows];
     size_t i = 0;
     for (const auto &row : list) {
-        this->_data[i++] = new Vector<T>(row);
+        this->_data[i++] = Vector<T>(row);
     }
 }
 
 template <class T>
-Matrix<T>::Matrix(const Vector<T> &other) : _rows(1), _cols(other.getSize()) {
-    this->_data = new Vector<T> *[1];
-    this->_data[0] = new Vector<T>(other);
-}
-
-template <class T>
-Matrix<T>::Matrix(const Matrix<T> &other)
-    : _rows(other._rows), _cols(other._cols) {
-    this->_data = new Vector<T> *[this->_rows];
+Matrix<T>::Matrix(const Matrix<T> &other) noexcept
+    : _rows(other._rows),
+      _cols(other._cols),
+      _data(std::make_unique<Vector<T>[]>(other._rows)) {
     for (size_t i = 0; i < this->_rows; i++) {
-        this->_data[i] = new Vector<T>(*other._data[i]);
+        this->_data[i] = Vector<T>(other._data[i]);
     }
 }
 
 template <class T>
 Matrix<T>::~Matrix() {
-    for (size_t i = 0; i < this->_rows; i++) {
-        delete this->_data[i];
-    }
-    delete[] this->_data;
 }
 
 template <class T>
-Matrix<T> &Matrix<T>::operator=(const Matrix<T> &other) {
+Matrix<T> &Matrix<T>::operator=(const Matrix<T> &other) noexcept {
     if (this == &other) {
         return *this;
     }
@@ -86,7 +80,7 @@ Vector<T> &Matrix<T>::operator[](size_t row) {
     if (row >= this->_rows) {
         throw std::out_of_range("Row index out of bounds");
     }
-    return *_data[row];
+    return _data[row];
 }
 
 template <class T>
@@ -94,17 +88,17 @@ const Vector<T> &Matrix<T>::operator[](size_t row) const {
     if (row >= this->_rows) {
         throw std::out_of_range("Row index out of bounds");
     }
-    return *_data[row];
+    return _data[row];
 }
 
 template <class T>
-bool Matrix<T>::operator==(const Matrix<T> &other) const {
+bool Matrix<T>::operator==(const Matrix<T> &other) const noexcept {
     if (this->_rows != other._rows || this->_cols != other._cols) {
         return false;
     }
 
     for (size_t i = 0; i < this->_rows; i++) {
-        if (*this->_data[i] != *other._data[i]) {
+        if (this->_data[i] != other._data[i]) {
             return false;
         }
     }
@@ -113,22 +107,22 @@ bool Matrix<T>::operator==(const Matrix<T> &other) const {
 }
 
 template <class T>
-bool Matrix<T>::operator!=(const Matrix<T> &other) const {
+bool Matrix<T>::operator!=(const Matrix<T> &other) const noexcept {
     return !(*this == other);
 }
 
 template <class T>
-size_t Matrix<T>::getRows() const {
+size_t Matrix<T>::getRows() const noexcept {
     return this->_rows;
 }
 
 template <class T>
-size_t Matrix<T>::getCols() const {
+size_t Matrix<T>::getCols() const noexcept {
     return this->_cols;
 }
 
 template <class T>
-bool Matrix<T>::isSquare() const {
+bool Matrix<T>::isSquare() const noexcept {
     return this->_rows == this->_cols;
 }
 

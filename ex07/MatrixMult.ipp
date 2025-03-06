@@ -4,7 +4,7 @@
 #include "Matrix.hpp"
 
 template <class T>
-Vector<T> Matrix<T>::mult(const Vector<T> &other) const noexcept(false) {
+Vector<T> Matrix<T>::mult(const Vector<T> &other) const {
     if (this->_cols != other.getSize()) {
         throw std::invalid_argument("Dimensions do not match");
     }
@@ -19,7 +19,7 @@ Vector<T> Matrix<T>::mult(const Vector<T> &other) const noexcept(false) {
 }
 
 template <class T>
-Matrix<T> Matrix<T>::mult(const Matrix<T> &other) const noexcept(false) {
+Matrix<T> Matrix<T>::mult(const Matrix<T> &other) const {
     if (this->_cols != other._rows) {
         throw std::invalid_argument("Dimensions do not match");
     }
@@ -38,11 +38,11 @@ Matrix<T> Matrix<T>::mult(const Matrix<T> &other) const noexcept(false) {
 }
 
 template <class T>
-Vector<T> Matrix<T>::operator*(const Vector<T> &vec) const noexcept(false) {
+Vector<T> Matrix<T>::operator*(const Vector<T> &vec) const {
     return this->mult(vec);
 }
 
 template <class T>
-Matrix<T> Matrix<T>::operator*(const Matrix<T> &other) const noexcept(false) {
+Matrix<T> Matrix<T>::operator*(const Matrix<T> &other) const {
     return this->mult(other);
 }

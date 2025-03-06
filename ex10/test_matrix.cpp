@@ -16,7 +16,7 @@ void testIdentityMatrixREF(UnitTest &test) {
     SET_TEST_NAME(test);
     Matrix<float> u = Matrix<float>::identity(10);
     Matrix<float> expected = u;
-    ASSERT_EQUALS(test, expected, u.row_echelon());
+    ASSERT_EQUALS(test, expected, u.rowEchelon());
 }
 
 void testInvertibleMatrixREF(UnitTest &test) {
@@ -26,7 +26,7 @@ void testInvertibleMatrixREF(UnitTest &test) {
         {3, 4},
     });
     Matrix<float> expected = Matrix<float>::identity(2);
-    ASSERT_EQUALS(test, expected, u.row_echelon());
+    ASSERT_EQUALS(test, expected, u.rowEchelon());
 }
 
 void testSingularMatrixREF(UnitTest &test) {
@@ -39,7 +39,7 @@ void testSingularMatrixREF(UnitTest &test) {
         {1, 2},
         {0, 0},
     });
-    ASSERT_EQUALS(test, expected, u.row_echelon());
+    ASSERT_EQUALS(test, expected, u.rowEchelon());
 }
 
 void testRankDeficientMatrixREF(UnitTest &test) {
@@ -54,7 +54,7 @@ void testRankDeficientMatrixREF(UnitTest &test) {
         {0, 1, 2},
         {0, 0, 0},
     });
-    assertMatrixAlmostEquals(test, expected, u.row_echelon());
+    assertMatrixAlmostEquals(test, expected, u.rowEchelon());
 }
 
 void testLargeMatrixREF(UnitTest &test) {
@@ -66,8 +66,8 @@ void testLargeMatrixREF(UnitTest &test) {
         {8, 1, 9, 2, 0},
         {6, 4, 5, 3, 7},
     });
-    Matrix<float> expected = u.row_echelon();
-    ASSERT_EQUALS(test, expected, u.row_echelon());
+    Matrix<float> expected = u.rowEchelon();
+    ASSERT_EQUALS(test, expected, u.rowEchelon());
 }
 
 void testFractionalMatrixREF(UnitTest &test) {
@@ -80,7 +80,7 @@ void testFractionalMatrixREF(UnitTest &test) {
         {1, 2},
         {0, 0},
     });
-    ASSERT_EQUALS(test, expected, u.row_echelon());
+    ASSERT_EQUALS(test, expected, u.rowEchelon());
 }
 
 void testNearlySingularMatrixREF(UnitTest &test) {
@@ -95,7 +95,7 @@ void testNearlySingularMatrixREF(UnitTest &test) {
         {0, 1, 2},
         {0, 0, 0},
     });
-    assertMatrixAlmostEquals(test, expected, u.row_echelon());
+    assertMatrixAlmostEquals(test, expected, u.rowEchelon());
 }
 
 int main() {

@@ -52,7 +52,7 @@ void testMatrixMultiplicationWithRowAndColumnVectors(UnitTest &test) {
         {1},
         {1},
     });
-    const Matrix<int> expectedResult({3});
+    const Matrix<int> expectedResult({{3}});
 
     ASSERT_EQUALS(test, expectedResult, rowVector.mult(columnVector));
 }

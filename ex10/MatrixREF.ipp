@@ -20,7 +20,7 @@ size_t Matrix<T>::findPivot(size_t row, size_t piv) const noexcept(true) {
 }
 
 template <class T>
-Matrix<T> Matrix<T>::row_echelon(void) const noexcept(true) {
+Matrix<T> Matrix<T>::rowEchelon(void) const noexcept(true) {
     const size_t rows = this->getRows(), cols = this->getCols();
     Matrix<T> result(*this);
 

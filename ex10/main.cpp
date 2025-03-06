@@ -20,7 +20,7 @@ int main() {
 
         std::cout << "Matrix 1:\n" << m1;
         std::cout << "Expected:\n" << expected;
-        std::cout << "Result:\n" << m1.row_echelon();
+        std::cout << "Result:\n" << m1.rowEchelon();
     }
     return 0;
 }

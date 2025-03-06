@@ -4,7 +4,7 @@
 #include "Matrix.hpp"
 
 template <class T>
-T Matrix<T>::trace(void) const noexcept(false) {
+T Matrix<T>::trace(void) const {
     if (!this->isSquare()) {
         throw std::invalid_argument("Matrix must be square");
     }

@@ -7,7 +7,7 @@
 
 template <class T>
 Vector<T> linear_combination(Vector<Vector<T>> &vectors,
-                             Vector<T> &coefficients) noexcept(false) {
+                             Vector<T> &coefficients) {
     if (vectors.getSize() != coefficients.getSize()) {
         throw std::invalid_argument(
             "Vectors and coefficients must have the same size");

@@ -4,7 +4,7 @@
 #include "Matrix.hpp"
 
 template <class T>
-Matrix<T> Matrix<T>::identity(size_t n) noexcept(false) {
+Matrix<T> Matrix<T>::identity(size_t n) noexcept {
     Matrix<T> identity(n, n, 0);
 
     for (size_t i = 0; i < n; i++) {
@@ -14,7 +14,7 @@ Matrix<T> Matrix<T>::identity(size_t n) noexcept(false) {
 }
 
 template <class T>
-Matrix<T> Matrix<T>::inverse(void) const noexcept(false) {
+Matrix<T> Matrix<T>::inverse(void) const {
     if (!this->isSquare()) {
         throw std::invalid_argument("Matrix must be square");
     }

@@ -6,7 +6,7 @@
 #include "Vector.hpp"
 
 template <class T>
-T Vector<T>::dotProduct(const Vector<T> &other) const noexcept(false) {
+T Vector<T>::dotProduct(const Vector<T> &other) const {
     if (this->_size != other._size) {
         throw std::invalid_argument("Vectors must have the same size");
     }

@@ -4,8 +4,7 @@
 #include "Vector.hpp"
 
 template <class T>
-Vector<T> cross_product(const Vector<T> &vec1,
-                        const Vector<T> &vec2) noexcept(false) {
+Vector<T> cross_product(const Vector<T> &vec1, const Vector<T> &vec2) {
     if (vec1.getSize() != 3 || vec2.getSize() != 3) {
         throw std::invalid_argument("Vectors must have size 3");
     }

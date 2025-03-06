@@ -6,54 +6,37 @@
 #include "Vector.hpp"
 
 template <class T>
-Vector<T>::Vector() : _size(0), _data(new T[0]) {
+Vector<T>::Vector() noexcept : _size(0), _data(std::make_unique<T[]>(_size)) {
 }
 
 template <class T>
-Vector<T>::Vector(const std::initializer_list<T> &list)
-    : _size(list.size()), _data(new T[list.size()]) {
+Vector<T>::Vector(const std::initializer_list<T> &list) noexcept
+    : _size(list.size()), _data(std::make_unique<T[]>(list.size())) {
     size_t i = 0;
+
     for (const T &elem : list) {
         this->_data[i++] = elem;
     }
 }
 
 template <class T>
-Vector<T>::Vector(const size_t size, const T &value)
-    : _size(size), _data(new T[size]) {
+Vector<T>::Vector(const size_t size, const T &value) noexcept
+    : _size(size), _data(std::make_unique<T[]>(size)) {
     for (size_t i = 0; i < this->_size; i++) {
         this->_data[i] = value;
     }
 }
 
 template <class T>
-Vector<T>::Vector(const Matrix<T> &other) {
-    this->_size = other.getCols() * other.getRows();
-    this->_data = new T[this->_size];
-
-    const auto &cols = other.getCols();
-    for (size_t row = 0; row < other.getRows(); row++) {
-        for (size_t col = 0; col < other.getCols(); col++) {
-            this->_data[row * cols + col] = other[row][col];
-        }
-    }
-}
-
-template <class T>
-Vector<T>::Vector(const Vector &other)
-    : _size(other._size), _data(new T[other._size]) {
+Vector<T>::Vector(const Vector &other) noexcept
+    : _size(other.getSize()), _data(std::make_unique<T[]>(other.getSize())) {
     for (size_t i = 0; i < this->_size; i++) {
         this->_data[i] = other._data[i];
     }
 }
 
 template <class T>
-Vector<T>::~Vector() {
-    delete[] this->_data;
-}
-
-template <class T>
-size_t Vector<T>::getSize(void) const {
+size_t Vector<T>::getSize(void) const noexcept {
     return this->_size;
 }
 
@@ -74,7 +57,7 @@ const T &Vector<T>::operator[](size_t index) const {
 }
 
 template <class T>
-bool Vector<T>::operator==(const Vector &other) const {
+bool Vector<T>::operator==(const Vector &other) const noexcept {
     if (this->_size != other._size) {
         return false;
     }
@@ -88,7 +71,7 @@ bool Vector<T>::operator==(const Vector &other) const {
 
 // Specialization for floating-point types
 template <>
-bool Vector<float>::operator==(const Vector &other) const {
+bool Vector<float>::operator==(const Vector &other) const noexcept {
     if (this->_size != other._size) {
         return false;
     }
@@ -102,7 +85,7 @@ bool Vector<float>::operator==(const Vector &other) const {
 }
 
 template <>
-bool Vector<double>::operator==(const Vector &other) const {
+bool Vector<double>::operator==(const Vector &other) const noexcept {
     if (this->_size != other._size) {
         return false;
     }
@@ -116,19 +99,18 @@ bool Vector<double>::operator==(const Vector &other) const {
 }
 
 template <class T>
-bool Vector<T>::operator!=(const Vector &other) const {
+bool Vector<T>::operator!=(const Vector &other) const noexcept {
     return !(*this == other);
 }
 
 template <class T>
-Vector<T> &Vector<T>::operator=(const Vector &other) {
+Vector<T> &Vector<T>::operator=(const Vector &other) noexcept {
     if (this == &other) {
         return *this;
     }
-    delete[] this->_data;
 
     this->_size = other._size;
-    this->_data = new T[this->_size];
+    this->_data = std::make_unique<T[]>(this->_size);
     for (size_t i = 0; i < this->_size; i++) {
         this->_data[i] = other._data[i];
     }
@@ -136,7 +118,7 @@ Vector<T> &Vector<T>::operator=(const Vector &other) {
 }
 
 template <class T>
-std::ostream &operator<<(std::ostream &os, const Vector<T> &vec) {
+std::ostream &operator<<(std::ostream &os, const Vector<T> &vec) noexcept {
     for (size_t i = 0; i < vec.getSize(); i++) {
         os << vec[i] << "\t";
     }
