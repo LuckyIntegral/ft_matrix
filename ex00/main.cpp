@@ -3,45 +3,44 @@
 #include "Matrix.hpp"
 #include "Vector.hpp"
 
+static std::string equal(const bool b) {
+    return b ? "true" : "false";
+}
+
 int main() {
     {
-        std::cout << "Matrix test" << std::endl;
-        Matrix<float> mat1({{1.1, 2.2, 3.3}, {4.4, 5.5, 6.6}});
-        const Matrix<float> mat2({{1, 2, 3}, {4, 5, 6}});
+        std::cout << "Matrix test" << '\n';
+        const Matrix<float> A({{1.1, 2.2, 3.3}, {4.4, 5.5, 6.6}});
+        const Matrix<float> B({{1, 2, 3}, {4, 5, 6}});
 
-        std::cout << "Matrix 1:" << std::endl;
-        std::cout << mat1 << std::endl;
-        std::cout << "Matrix 2:" << std::endl;
-        std::cout << mat2 << std::endl;
+        std::cout << "Matrix A:\n" << A << '\n';
+        std::cout << "Matrix B:\n" << B << '\n';
 
-        mat1.add(mat2);
-        std::cout << "Matrix 1 after mat1.add(mat2)" << std::endl;
-        std::cout << mat1 << std::endl;
+        std::cout << "Result of A + B\n" << A + B << '\n';
+        std::cout << "Result of A - B\n" << A - B << '\n';
+        std::cout << "Result of A * 10\n" << A * 10 << '\n';
 
-        mat1.sub(mat2);
-        std::cout << "Matrix 1 after mat1.sub(mat2)" << std::endl;
-        std::cout << mat1 << std::endl;
-
-        mat1.scalar(10);
-        std::cout << "Matrix 1 after mat1.scalar(10)" << std::endl;
-        std::cout << mat1 << std::endl;
+        std::cout << "Properties:\n";
+        std::cout << "A + B == B + A: " << equal(A + B == B + A) << '\n';
+        std::cout << "An + Bn == (A + B)n: "
+                  << equal(A * 10 + B * 10 == (A + B) * 10) << '\n';
     }
     {
-        std::cout << "\nVector test" << std::endl;
-        Vector<long double> vec1({1.1, 2.2, 3.3});
-        const Vector<long double> vec2({1, 2, 3});
+        std::cout << "\nVector test" << '\n';
+        const Vector<long double> a({1.1, 2.2, 3.3});
+        const Vector<long double> b({1, 2, 3});
 
-        std::cout << "Vector 1: --- " << vec1 << std::endl;
-        std::cout << "Vector 2: --- " << vec2 << std::endl;
+        std::cout << "Vector a:\n" << a << '\n';
+        std::cout << "Vector b:\n" << b << '\n';
 
-        vec1.add(vec2);
-        std::cout << "Vector 1 after vec1.add(vec2)  --- " << vec1 << std::endl;
+        std::cout << "Result of a + b\n" << a + b << '\n';
+        std::cout << "Result of a - b\n" << a - b << '\n';
+        std::cout << "Result of a * 10\n" << a * 10 << '\n';
 
-        vec1.sub(vec2);
-        std::cout << "Vector 1 after vec1.sub(vec2)  --- " << vec1 << std::endl;
-
-        vec1.scalar(10);
-        std::cout << "Vector 1 after vec1.scalar(10) --- " << vec1 << std::endl;
+        std::cout << "Properties:\n";
+        std::cout << "a + b == b + a: " << equal(a + b == b + a) << '\n';
+        std::cout << "an + bn == (a + b)n: "
+                  << equal(a * 10 + b * 10 == (a + b) * 10) << '\n';
     }
     return 0;
 }
